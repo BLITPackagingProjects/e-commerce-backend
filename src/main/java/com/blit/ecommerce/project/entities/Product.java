@@ -18,8 +18,25 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long product_id;
+    
+    public Product() {
+    	super();
+    }
+    
+    public Product(String name, double price, String imageName, String description, String seller, String status,
+			Cart cart, Order order) {
+		super();
+		this.name = name;
+		this.price = price;
+		this.imageName = imageName;
+		this.description = description;
+		this.seller = seller;
+		this.status = status;
+		this.cart = cart;
+		this.order = order;
+	}
 
-    @Column
+	@Column
     private String name;
 
     @Column
