@@ -38,7 +38,7 @@ public class Product {
     private String seller;
 
     @Column
-    private String status;
+    private Integer quantity;
 
     @ManyToOne
     @JoinColumn(name="cart_id")
@@ -59,14 +59,14 @@ public class Product {
         this.price = price;
     }
 
-    public Product(long product_id, String name, double price, String imageName, String description, String seller, String status) {
+    public Product(long product_id, String name, double price, String imageName, String description, String seller, Integer quantity) {
         this.product_id = product_id;
         this.name = name;
         this.price = price;
         this.imageName = imageName;
         this.description = description;
         this.seller = seller;
-        this.status = status;
+        this.quantity = quantity;
     }
 
 

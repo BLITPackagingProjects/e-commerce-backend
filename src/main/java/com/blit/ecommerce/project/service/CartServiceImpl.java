@@ -38,4 +38,10 @@ public class CartServiceImpl implements CartService{
               .mapToDouble(Product::getPrice)
               .sum();
     }
+
+    @Override
+    public void clearCart(Cart cart) {
+        cart.getProductList().clear();
+        cartRepository.save(cart);
+    }
 }

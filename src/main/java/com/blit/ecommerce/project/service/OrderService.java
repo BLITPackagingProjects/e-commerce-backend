@@ -1,5 +1,6 @@
 package com.blit.ecommerce.project.service;
 
+import com.blit.ecommerce.project.entities.Cart;
 import com.blit.ecommerce.project.entities.Order;
 import com.blit.ecommerce.project.entities.Product;
 import com.blit.ecommerce.project.entities.User;
@@ -10,6 +11,6 @@ public interface OrderService {
 
     List<Order> getOrders();
     Order getOrderById(Long id);
-    Order createOrder(User user, Product... products);
-    void cancelOrder();
+    void createOrder(Long userId, Integer cartId);
+    void cancelOrder(Long id);
 }

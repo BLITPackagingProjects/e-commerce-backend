@@ -13,4 +13,5 @@ public interface CartService {
     double getTotalPrice(Cart cart);
 
 
+    void clearCart(Cart cart);
 }

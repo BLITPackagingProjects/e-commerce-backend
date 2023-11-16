@@ -32,9 +32,9 @@ public class ProjectApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		List<Product> products = Arrays.asList(
-				new Product(1, "iphone", 800.00,"iphoneImage", "this is a new iphone", "Lisa", "OnSale" ),
-				new Product(2, "galaxy", 780.00, "galaxyImage", "this is a galaxy phone", "Lisa", "OnSale"),
-				new Product(3, "macbook", 1500.00, "macbookImage", "this is a macBook", "Lisa", "OnSale")
+				new Product(1, "iphone", 800.00,"iphoneImage", "this is a new iphone", "Lisa", 100 ),
+				new Product(2, "galaxy", 780.00, "galaxyImage", "this is a galaxy phone", "Lisa", 200),
+				new Product(3, "macbook", 1500.00, "macbookImage", "this is a macBook", "Lisa", 300)
 
 		);
 

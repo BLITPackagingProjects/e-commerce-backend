@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -33,6 +34,9 @@ public class User {
     private String lastName;
 
     @OneToMany(mappedBy = "user")
-    private List<Order> orderList;
+    private List<Order> orderList = new ArrayList<>();
 
+    public User(String username) {
+        this.username = username;
+    }
 }

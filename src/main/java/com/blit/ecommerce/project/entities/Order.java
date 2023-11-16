@@ -27,9 +27,6 @@ public class Order {
     @Column
     private LocalDateTime date;
 
-    @Transient
-    private List<Product> productsToAdd = new ArrayList<>();
-
     @OneToMany(mappedBy = "order")
     private List<Product> productList = new ArrayList<>();
 

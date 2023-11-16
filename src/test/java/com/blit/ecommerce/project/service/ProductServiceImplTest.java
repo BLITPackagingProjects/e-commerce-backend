@@ -15,8 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class ProductServiceImplTest {
 
@@ -37,15 +36,11 @@ public class ProductServiceImplTest {
         // Arrange
         Product productToSave = new Product(); // create a product to save
 
-        // Stub the save method in productRepository
-        when(productRepository.save(productToSave)).thenReturn(productToSave);
-
         // Act
-        Product savedProduct = productService.createProduct(productToSave);
+         productService.createProduct(productToSave);
 
         // Assert
-        assertNotNull(savedProduct);
-        assertEquals(productToSave, savedProduct);
+        verify(productRepository, times(1)).save(productToSave);
 
     }
 
