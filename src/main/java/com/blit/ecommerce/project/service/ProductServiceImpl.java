@@ -23,7 +23,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> regexProducts(String regex) {
 		// TODO Auto-generated method stub
-		return pRepo.findProductByNameLike(regex);
+		return pRepo.findProductByNameRegex(regex);
 	}
 
 }

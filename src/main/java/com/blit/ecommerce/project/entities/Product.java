@@ -19,9 +19,6 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long product_id;
     
-    public Product() {
-    	super();
-    }
     
     public Product(String name, double price, String imageName, String description, String seller, String status,
 			Cart cart, Order order) {

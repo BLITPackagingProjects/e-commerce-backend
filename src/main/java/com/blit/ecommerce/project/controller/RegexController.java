@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.blit.ecommerce.project.entities.Product;
 import com.blit.ecommerce.project.service.ProductService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/search")
@@ -28,6 +31,8 @@ public class RegexController {
 	
 	@GetMapping("/regex")
 	public ResponseEntity<List<Product>> regexProducts(@RequestBody String regex){
+		System.out.println(regex);
 		return new ResponseEntity<>(pServ.regexProducts(regex),HttpStatus.OK);
+		
 	}
 }
