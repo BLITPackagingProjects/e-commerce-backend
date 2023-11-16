@@ -20,7 +20,7 @@ public class Product {
     private long product_id;
     
     
-    public Product(String name, double price, String imageName, String description, String seller, String status,
+    public Product(String name, double price, String imageName, String description, String seller, Long quantity,
 			Cart cart, Order order) {
 		super();
 		this.name = name;
@@ -28,7 +28,7 @@ public class Product {
 		this.imageName = imageName;
 		this.description = description;
 		this.seller = seller;
-		this.status = status;
+		this.quantity = quantity;
 		this.cart = cart;
 		this.order = order;
 	}
@@ -49,7 +49,7 @@ public class Product {
     private String seller;
 
     @Column
-    private String status;
+    private Long quantity;
 
     @ManyToOne
     private Cart cart;
