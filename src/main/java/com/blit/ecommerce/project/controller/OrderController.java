@@ -29,10 +29,5 @@ public class OrderController {
         return new ResponseEntity<>(orderService.getOrderById(id), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Order> saveOrder(@RequestBody Order order){
-        return new ResponseEntity<>(orderService.saveOrder(order), HttpStatus.CREATED);
-    }
-
 
 }

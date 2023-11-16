@@ -26,6 +26,9 @@ public class Product {
     private double price;
 
     @Column
+    private int count;
+
+    @Column
     private String imageName;
 
     @Column
@@ -38,10 +41,23 @@ public class Product {
     private String status;
 
     @ManyToOne
+    @JoinColumn(name="cart_id")
     private Cart cart;
 
     @ManyToOne
+    @JoinColumn(name="order_id")
     private Order order;
+
+    public Product(long product_id, String name, double price) {
+        this.product_id = product_id;
+        this.name = name;
+        this.price = price;
+    }
+
+    public Product(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
 
     public Product(long product_id, String name, double price, String imageName, String description, String seller, String status) {
         this.product_id = product_id;
@@ -52,4 +68,6 @@ public class Product {
         this.seller = seller;
         this.status = status;
     }
+
+
 }

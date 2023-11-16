@@ -6,8 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.aspectj.weaver.ast.Or;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,13 +25,16 @@ public class Order {
     private long order_id;
 
     @Column
-    private Date date;
+    private LocalDateTime date;
+
+    @Transient
+    private List<Product> productsToAdd = new ArrayList<>();
 
     @OneToMany(mappedBy = "order")
-    private List<Product> productList;
+    private List<Product> productList = new ArrayList<>();
 
     @ManyToOne
+    @JoinColumn(name="user_id")
     private User user;
-
 
 }

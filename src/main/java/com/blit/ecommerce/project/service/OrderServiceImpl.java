@@ -2,37 +2,33 @@ package com.blit.ecommerce.project.service;
 
 import com.blit.ecommerce.project.entities.Order;
 import com.blit.ecommerce.project.entities.Product;
-import com.blit.ecommerce.project.exception.OrderNotFoundException;
-import com.blit.ecommerce.project.repository.OrderRepository;
-import com.blit.ecommerce.project.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.blit.ecommerce.project.entities.User;
+import com.blit.ecommerce.project.service.OrderService;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
 @Service
-public class OrderServiceImpl implements OrderService{
-
-    @Autowired
-    private OrderRepository orderRepository;
-
-    @Autowired
-    private ProductRepository productRepository;
-
-
+public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getOrders() {
-        return (List<Order>)orderRepository.findAll();
+        return null;
     }
 
     @Override
     public Order getOrderById(Long id) {
-        return orderRepository.findById(id)
-                .orElseThrow(()-> new OrderNotFoundException("Order Not Found"));
+        return null;
     }
 
     @Override
-    public Order saveOrder(Order order) {
-        return orderRepository.save(order);
+    public Order createOrder(User user, Product... products) {
+        return null;
+    }
+
+    @Override
+    public void cancelOrder() {
+
     }
 }
+

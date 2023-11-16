@@ -1,7 +1,9 @@
 package com.blit.ecommerce.project.service;
 
 import com.blit.ecommerce.project.entities.Product;
+
 import com.blit.ecommerce.project.exception.ProductNotFoundException;
+
 import com.blit.ecommerce.project.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public List<Product> getProducts() {
+
         return (List<Product>) productRepository.findAll();
     }
 
@@ -26,7 +29,9 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product saveProduct(Product product) {
+    public Product createProduct(Product product) {
         return productRepository.save(product);
     }
+
+
 }

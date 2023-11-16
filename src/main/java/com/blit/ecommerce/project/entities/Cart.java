@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,6 +26,6 @@ public class Cart {
 
 
     @OneToMany(mappedBy = "cart")
-    private List<Product> productList;
+    private List<Product> productList =new ArrayList<>();
 
 }
