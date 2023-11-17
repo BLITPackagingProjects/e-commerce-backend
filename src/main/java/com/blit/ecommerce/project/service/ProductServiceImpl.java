@@ -15,15 +15,12 @@ public class ProductServiceImpl implements ProductService {
 	ProductRepository pRepo;
 	
 	@Override
-	public List<Product> searchProducts(String name) {
-		// TODO Auto-generated method stub
-		return pRepo.findProductByNameLike(name);
-	}
-	
-	@Override
 	public List<Product> regexProducts(String regex) {
 		// TODO Auto-generated method stub
 		return pRepo.findProductByNameRegex(regex);
 	}
 
+	/*
+	 * Other functions
+	 */
 }

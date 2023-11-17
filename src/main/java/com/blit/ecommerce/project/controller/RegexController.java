@@ -24,11 +24,6 @@ public class RegexController {
 	@Autowired
 	ProductService pServ;
 	
-	@GetMapping("/basic/{name}")
-	public ResponseEntity<List<Product>> searchProducts(@PathVariable String name){
-		return new ResponseEntity<>(pServ.searchProducts(name),HttpStatus.OK);
-	}
-	
 	@GetMapping("/regex")
 	public ResponseEntity<List<Product>> regexProducts(@RequestBody String regex){
 		System.out.println(regex);

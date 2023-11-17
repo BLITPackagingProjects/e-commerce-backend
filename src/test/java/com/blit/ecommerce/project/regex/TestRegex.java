@@ -5,10 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.assertj.core.util.Arrays;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -26,18 +22,18 @@ class TestRegex {
 	private ProductRepository pRepo;
 	@InjectMocks
 	private ProductServiceImpl pServ;
-	
 
 	@BeforeEach
 	void setUp() throws Exception {
-		MockitoAnnotations.openMocks(pRepo).close();
+		MockitoAnnotations.openMocks(this).close();
 	}
 
 
 	@Test
 	void testEmpty() {
 		String regex = "";
-		Mockito.when(pRepo.findProductByNameRegex(regex)).thenReturn(new ArrayList<Product>());
+		List<Product> expected = new ArrayList<Product>();
+		Mockito.when(pRepo.findProductByNameRegex(regex)).thenReturn(expected);
 		
 		List<Product> output = pServ.regexProducts(regex);
 		
@@ -58,5 +54,6 @@ class TestRegex {
 		
 		assert(output.size()==3);
 	}
+	
 
 }
