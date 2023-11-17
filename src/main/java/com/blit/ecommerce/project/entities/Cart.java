@@ -1,5 +1,6 @@
 package com.blit.ecommerce.project.entities;
 
+import com.blit.ecommerce.project.exception.ProductNotFoundException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,5 +31,16 @@ public class Cart {
 
     public Cart(int cart_id) {
         this.cart_id = cart_id;
+    }
+
+    public void addCount(Integer qty){
+        this.number += qty;
+    }
+
+    public void removeCount(Integer qty){
+        int nextCount = this.number - qty;
+        if(nextCount < 0){
+            throw new ProductNotFoundException("No more product to delete");
+        }
     }
 }

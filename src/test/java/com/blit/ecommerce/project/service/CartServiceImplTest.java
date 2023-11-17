@@ -35,23 +35,59 @@ public class CartServiceImplTest {
     @Test
     public void testProductsAddedInCart(){
         //Arrange
-        Cart cart = new Cart();
+        Integer cartId = 1;
         Long productId =1L;
+        int count = 2;
+
+        Cart cart = new Cart();
         Product product1 = new Product(productId,"iphone", 800.00);
 
+        // Mocking repository and service behavior
+        when(cartRepository.findById(cartId)).thenReturn(java.util.Optional.ofNullable(cart));
         when(productService.getProductById(productId)).thenReturn(product1);
-        when(cartRepository.save(cart)).thenReturn(cart);
 
-        //Act
-        cartService.addProductToCart(cart, productId);
+        // Call the method to be tested
+        cartService.addProductToCart(cartId, productId, count);
 
-        //Assert
-        assertEquals(1, cart.getProductList().size());
-        assertEquals(product1, cart.getProductList().get(0));
+        // Verify that the expected methods were called
+        verify(cartRepository, times(1)).findById(cartId);
         verify(productService, times(1)).getProductById(productId);
         verify(cartRepository, times(1)).save(cart);
 
+        // Verify that the product was added to the cart
+        assert cart.getProductList().contains(product1);
+
+        // Verify that the count was updated
+        assert cart.getNumber() == count;
     }
+
+    @Test
+    public void testRemoveProductFromCart() {
+        Integer cartId = 1;
+        Long productId = 123L;
+        int countToRemove = 1;
+
+        Cart cart = new Cart();
+        Product product = new Product();
+        product.setProduct_id(productId);
+
+
+        cart.getProductList().add(product);
+        cart.setNumber(2);
+
+        when(cartRepository.findById(cartId)).thenReturn(java.util.Optional.ofNullable(cart));
+        when(productService.getProductById(productId)).thenReturn(product);
+
+        cartService.removeProductFromCart(cartId, productId, countToRemove);
+
+        verify(cartRepository, times(1)).findById(cartId);
+        verify(productService, times(1)).getProductById(productId);
+        verify(cartRepository, times(1)).save(cart);
+
+        assert !cart.getProductList().contains(product);
+        assert cart.getNumber() == 1;
+    }
+
 
     @Test
     public void testGetTotalPrice(){

@@ -11,6 +11,6 @@ public interface OrderService {
 
     List<Order> getOrders();
     Order getOrderById(Long id);
-    void createOrder(Long userId, Integer cartId);
-    void cancelOrder(Long id);
+    void createOrder(Long userId, Integer cartId, Integer count);
+//    void cancelOrder(Long id);
 }

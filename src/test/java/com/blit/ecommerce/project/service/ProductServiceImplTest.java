@@ -37,7 +37,7 @@ public class ProductServiceImplTest {
         Product productToSave = new Product(); // create a product to save
 
         // Act
-         productService.createProduct(productToSave);
+         productService.saveProduct(productToSave);
 
         // Assert
         verify(productRepository, times(1)).save(productToSave);

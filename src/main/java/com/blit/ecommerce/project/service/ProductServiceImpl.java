@@ -29,9 +29,12 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public void createProduct(Product product) {
+    public void saveProduct(Product product) {
          productRepository.save(product);
+
     }
+
+
 
 
 }

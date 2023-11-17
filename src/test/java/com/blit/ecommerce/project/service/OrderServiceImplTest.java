@@ -17,7 +17,9 @@ import org.mockito.MockitoAnnotations;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class OrderServiceImplTest {
 
@@ -46,35 +48,69 @@ public class OrderServiceImplTest {
 
     @Test
     public void testCreateOrder(){
-        MockitoAnnotations.openMocks(this); // Initialize mocks
+        MockitoAnnotations.openMocks(this);
+        // Mock data
+        Long userId = 1L;
+        Integer cartId = 2;
+        Integer countToOrder = 2; // Specify the count to order for each product
 
-        User user = new User("Lisa");
-        Long userId = user.getUser_id();
-        when(userRepository.findById(userId)).thenReturn(java.util.Optional.of(user));
+        User user = new User();
+        user.setUser_id(userId);
 
         Cart cart = new Cart();
-        int cartId = cart.getCart_id();
-        Product product1 = new Product(1L, "Laptop", 1999.00);
-        Product product2 = new Product(2L, "Smartphone", 999.00);
-        cart.getProductList().addAll(Arrays.asList(product1, product2));
+        cart.setCart_id(cartId);
 
-        when(cartRepository.findById(cartId)).thenReturn(java.util.Optional.of(cart));
+        Product product1 = new Product(1L, "Product1", 5);
+        Product product2 = new Product(2L, "Product2",  8);
 
-        Order order = new Order();
-        order.setDate(LocalDateTime.now());
-        order.setUser(user);
+        List<Product> productList = new ArrayList<>();
+        productList.add(product1);
+        productList.add(product2);
 
-        when(orderRepository.save(any(Order.class))).thenReturn(order);
+        cart.setProductList(productList);
 
-        orderService.createOrder(userId, cartId);
+        when(userRepository.findById(userId)).thenReturn(java.util.Optional.ofNullable(user));
+        when(cartRepository.findById(cartId)).thenReturn(java.util.Optional.ofNullable(cart));
 
-        verify(userRepository, times(1)).findById(userId);
-        verify(cartRepository, times(1)).findById(cartId);
-        verify(orderRepository, times(1)).save(argThat(savedOrder ->
-                savedOrder.getUser().equals(user) && savedOrder.getDate() != null));
+//        // Call the method to be tested
+        orderService.createOrder(userId, cartId, countToOrder);
 
+        // Verify that the expected methods were called
+        verify(cartRepository, times(1)).findById(any());
+        verify(orderRepository, times(1)).save(any(Order.class));
         verify(cartService, times(1)).clearCart(cart);
+        verify(productService, times(2)).saveProduct(any(Product.class)); // Assuming you have two products in the cart
+//
+//        // Verify that the product quantities were reduced based on the specified countToOrder
+        assert product1.getQuantity() == 3; // Assuming you reduce by 2 for Product1
+        assert product2.getQuantity() == 6; // Assuming you reduce by 2 for Product2
 
+
+
+//        MockitoAnnotations.openMocks(this); // Initialize mocks
+//
+//        User user = new User("Lisa");
+//        Long userId = user.getUser_id();
+//        int count = productService.getProductById(userId).getQuantity();
+//        when(userRepository.findById(userId)).thenReturn(java.util.Optional.of(user));
+//
+//        Cart cart = new Cart();
+//        int cartId = cart.getCart_id();
+//        Product product1 = new Product(1L, "Laptop", 2);
+//        Product product2 = new Product(2L, "Smartphone", 3);
+//        cart.getProductList().addAll(Arrays.asList(product1, product2));
+//
+//        when(cartRepository.findById(cartId)).thenReturn(java.util.Optional.of(cart));
+//        when(userRepository.findById(userId)).thenReturn(java.util.Optional.of(user));
+//
+//       orderService.createOrder(userId, cartId, count );
+//        verify(orderRepository, times(1)).save(any(Order.class));
+//        verify(cartService, times(1)).clearCart(cart);
+//        verify(productService, times(2)).createProduct(any(Product.class)); // Assuming you have two products in the cart
+//
+//        // Verify that the product quantities were reduced based on the specified counts
+//        assert product1.getQuantity() == 3; // Assuming you reduce by 2 for Product1
+//        assert product2.getQuantity() == 5; // Assuming you reduce by 3 for Product2
 
     }
 

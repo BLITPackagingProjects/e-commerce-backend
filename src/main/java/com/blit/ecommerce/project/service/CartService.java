@@ -7,7 +7,10 @@ import java.util.List;
 
 public interface CartService {
 
-    void addProductToCart(Cart cart, Long productId);
+    void createCart(Cart cart);
+    void addProductToCart(Integer cartId,Long productId, int count);
+
+    void removeProductFromCart(Integer cartId,Long productId, int count);
     List<Product> getAddedProducts(Cart cart);
 
     double getTotalPrice(Cart cart);

@@ -1,5 +1,6 @@
 package com.blit.ecommerce.project.entities;
 
+import com.blit.ecommerce.project.exception.NotEnoughStockException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,9 +27,6 @@ public class Product {
     private double price;
 
     @Column
-    private int count;
-
-    @Column
     private String imageName;
 
     @Column
@@ -48,15 +46,22 @@ public class Product {
     @JoinColumn(name="order_id")
     private Order order;
 
+
+    public Product(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
     public Product(long product_id, String name, double price) {
         this.product_id = product_id;
         this.name = name;
         this.price = price;
     }
 
-    public Product(String name, double price) {
+    public Product(long product_id, String name, int quantity) {
+        this.product_id = product_id;
         this.name = name;
-        this.price = price;
+        this.quantity = quantity;
     }
 
     public Product(long product_id, String name, double price, String imageName, String description, String seller, Integer quantity) {
@@ -67,6 +72,18 @@ public class Product {
         this.description = description;
         this.seller = seller;
         this.quantity = quantity;
+    }
+
+    public void addStock(Integer qty){
+        this.quantity += qty;
+    }
+
+    public void removeStock(Integer qty){
+        if (this.quantity >= qty) {
+            this.quantity -= qty;
+        } else {
+            throw new NotEnoughStockException("Not enough stock available.");
+        }
     }
 
 

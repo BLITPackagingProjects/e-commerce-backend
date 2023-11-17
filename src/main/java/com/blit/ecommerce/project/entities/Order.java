@@ -34,4 +34,10 @@ public class Order {
     @JoinColumn(name="user_id")
     private User user;
 
+    private boolean canceled;
+
+    public void setCanceled(boolean canceled){
+        this.canceled = canceled;
+    }
+
 }
