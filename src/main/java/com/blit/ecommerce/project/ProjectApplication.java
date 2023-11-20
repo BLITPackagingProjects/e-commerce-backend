@@ -1,34 +1,35 @@
 package com.blit.ecommerce.project;
 
-import java.util.Arrays;
+
+import com.blit.ecommerce.project.entities.Product;
+import com.blit.ecommerce.project.repository.ProductRepository;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.blit.ecommerce.project.entities.Product;
-import com.blit.ecommerce.project.repository.ProductRepository;
+
+import java.util.Arrays;
+import java.util.List;
+
+
+
 
 @SpringBootApplication
 public class ProjectApplication /*implements CommandLineRunner/**/{
 
+	private static final Logger logger = LoggerFactory.getLogger(ProjectApplication.class);
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectApplication.class, args);
+		logger.info("The trojan application started successfully");
 	}
-/*
-	@Autowired
-	private ProductRepository pRepo;
-	@Override
-	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
-		pRepo.saveAll(Arrays.asList(
-				new Product("powder", 10.0, null, "a fun time", "disney", 0L, null, null),
-				new Product("oil", 100.0, null, "Don't tell america", "Earth", 0L, null, null),
-				new Product("milk", 5.20, null, "stronk bones", "Big Dairy", 0L, null, null),
-				new Product("doot", 100.0, null, "dootdootdoot", "nootnoot", 0L, null, null),
-				new Product("fur", 25.0, null, "soft and fluffy", "bear", 0L, null, null)
-				));
-	}
-//*/
+
+
+
+
 }
