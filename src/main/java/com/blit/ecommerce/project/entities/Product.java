@@ -46,7 +46,7 @@ public class Product {
     @ManyToOne
     private Order order;
 
-    // constructor without cart and order-> just for testing CRUDs.
+
     public Product(String name, double price, String imageName, String description, String seller, String status) {
         this.name = name;
         this.price = price;
