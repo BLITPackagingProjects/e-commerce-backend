@@ -1,4 +1,4 @@
-package com.blit.ecommerce.project.controllers;
+package com.blit.ecommerce.project.controller;
 
 import com.blit.ecommerce.project.entities.Order;
 import com.blit.ecommerce.project.entities.Product;
