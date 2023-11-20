@@ -27,10 +27,10 @@ public class Order {
     @Column
     private LocalDateTime date;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
     private List<Product> productList = new ArrayList<>();
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name="user_id")
     private User user;
 

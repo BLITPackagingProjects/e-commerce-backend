@@ -32,12 +32,19 @@ public class OrderController {
         return new ResponseEntity<>(orderService.getOrderById(id), HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/{userId}")
     public ResponseEntity<String> createOrder(
-            @PathVariable long userId,
-            @PathVariable int cartId){
-        orderService.createOrder(userId, cartId);
+            @PathVariable long userId){
+        orderService.createOrder(userId);
         return new ResponseEntity<>("Order is created successfully", HttpStatus.CREATED);
+    }
+
+    @PostMapping("/{orderId}/{productId}")
+    public ResponseEntity<String> getOrder(
+            @PathVariable long orderId,
+            @PathVariable long productId){
+            orderService.addProductToOrder(orderId, productId);
+            return new ResponseEntity<>("Product is added in the order", HttpStatus.CREATED);
     }
 
 

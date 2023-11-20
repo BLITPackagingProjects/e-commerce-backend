@@ -27,7 +27,7 @@ public class Product {
     private double price;
 
     @Column
-    private String imageName;
+    private String imagename;
 
     @Column
     private String description;
@@ -37,10 +37,6 @@ public class Product {
 
     @Column
     private int quantity;
-
-    @ManyToOne
-    @JoinColumn(name="cart_id")
-    private Cart cart;
 
     @ManyToOne
     @JoinColumn(name="order_id")
@@ -58,27 +54,27 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public Product(long product_id, String name, double price, String imageName, String description, String seller, int quantity) {
-        this.product_id = product_id;
-        this.name = name;
-        this.price = price;
-        this.imageName = imageName;
-        this.description = description;
-        this.seller = seller;
-        this.quantity = quantity;
-    }
+//    public Product(long product_id, String name, double price, String imageName, String description, String seller, int quantity) {
+//        this.product_id = product_id;
+//        this.name = name;
+//        this.price = price;
+//        this.imageName = imageName;
+//        this.description = description;
+//        this.seller = seller;
+//        this.quantity = quantity;
+//    }
 
-    public void addStock(int qty){
-        this.quantity += qty;
-    }
-
-    public void removeStock(int qty){
-        if (this.quantity >= qty) {
-            this.quantity -= qty;
-        } else {
-            throw new NotEnoughStockException("Not enough stock available.");
-        }
-    }
+//    public void addStock(int qty){
+//        this.quantity += qty;
+//    }
+//
+//    public void removeStock(int qty){
+//        if (this.quantity >= qty) {
+//            this.quantity -= qty;
+//        } else {
+//            throw new NotEnoughStockException("Not enough stock available.");
+//        }
+//    }
 
 
 }

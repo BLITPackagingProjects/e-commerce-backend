@@ -2,6 +2,7 @@ package com.blit.ecommerce.project.controller;
 
 import com.blit.ecommerce.project.entities.Product;
 import com.blit.ecommerce.project.service.ProductService;
+import com.blit.ecommerce.project.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable long id){
+    public ResponseEntity<Product> getProductById(@PathVariable("id") long id){
         return new ResponseEntity<>(productService.getProductById(id), HttpStatus.OK);
     }
 
