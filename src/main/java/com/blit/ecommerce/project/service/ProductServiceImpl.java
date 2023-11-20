@@ -1,5 +1,6 @@
 package com.blit.ecommerce.project.service;
 
+
 import com.blit.ecommerce.project.entities.Product;
 import com.blit.ecommerce.project.exception.ResourceNotFoundException;
 import com.blit.ecommerce.project.repository.ProductRepository;
@@ -8,8 +9,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
 @Service
 public class ProductServiceImpl implements ProductService {
+
 
     @Autowired
     private ProductRepository productRepository;
@@ -48,4 +51,11 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
+    
+    	@Override
+	public List<Product> regexProducts(String regex) {
+		// TODO Auto-generated method stub
+		return productRepository.findProductByNameRegex(regex);
+	}
+
 }
