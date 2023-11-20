@@ -42,4 +42,13 @@ public class Product {
 
     @ManyToOne
     private Order order;
+
+    public Product(String name, double price, String imageName, String description, String seller, String status) {
+        this.name = name;
+        this.price = price;
+        this.imageName = imageName;
+        this.description = description;
+        this.seller = seller;
+        this.status = status;
+    }
 }
