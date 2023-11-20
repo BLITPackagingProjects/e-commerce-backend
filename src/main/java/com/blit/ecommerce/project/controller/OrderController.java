@@ -16,10 +16,12 @@ public class OrderController {
 
     @Autowired
     EmailService emailService;
-    //TO-DO postOrder controller method
+
 
     @PostMapping
     public void postOrder(@RequestBody Order order){
+
+        //orderService.createOrder(order);
         String confirmationMessage = "Order confirmation for order " + order.getOrder_id() + ".\n Date: " +order.getDate()+"\nProducts: ";
         for(Product p : order.getProductList()){
             confirmationMessage+=p.getName() + " | Price: "+
@@ -28,6 +30,5 @@ public class OrderController {
         }
 
         emailService.sendOrderConfirmation(order.getUser().getUsername(),"Order Confirmation", confirmationMessage);
-        //orderService.createOrder(order);
     }
 }
