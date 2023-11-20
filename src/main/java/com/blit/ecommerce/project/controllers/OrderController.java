@@ -1,6 +1,7 @@
 package com.blit.ecommerce.project.controllers;
 
 import com.blit.ecommerce.project.entities.Order;
+import com.blit.ecommerce.project.entities.Product;
 import com.blit.ecommerce.project.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,14 @@ public class OrderController {
 
     @PostMapping
     public void postOrder(@RequestBody Order order){
-        emailService.sendOrderConfirmation(order);
+        String confirmationMessage = "Order confirmation for order " + order.getOrder_id() + ".\n Date: " +order.getDate()+"\nProducts: ";
+        for(Product p : order.getProductList()){
+            confirmationMessage+=p.getName() + " | Price: "+
+                    p.getPrice() +
+                    " | Quantity: " + p.getQuantity();
+        }
+
+        emailService.sendOrderConfirmation(order.getUser().getUsername(),"Order Confirmation", confirmationMessage);
         //orderService.createOrder(order);
     }
 }
