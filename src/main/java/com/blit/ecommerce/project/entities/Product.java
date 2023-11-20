@@ -5,14 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import jakarta.persistence.Entity;
+import org.springframework.context.annotation.Bean;
 
-
+// make repo/ service/and controller for product and work on it Repository
 @Entity
 @Table
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Product {
 
     @Id
@@ -42,6 +45,7 @@ public class Product {
 
     @ManyToOne
     private Order order;
+
 
     public Product(String name, double price, String imageName, String description, String seller, String status) {
         this.name = name;

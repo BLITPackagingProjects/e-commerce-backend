@@ -1,10 +1,17 @@
 package com.blit.ecommerce.project.controller;
+
+
 import com.blit.ecommerce.project.entities.Product;
-import com.blit.ecommerce.project.services.ProductService;
+import com.blit.ecommerce.project.service.ProductService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+
+
+
 
 
 @RestController
@@ -29,4 +36,17 @@ public class ProductController {
         productService.updateProduct(product_id, product);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
+  @PostMapping
+    public ResponseEntity<Product> saveProduct(@RequestBody Product product){
+        return new ResponseEntity<>(productService.saveProduct(product),HttpStatus.CREATED);
+    }
+
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Product> deleteProduct(@PathVariable Long id){
+        productService.deleteProduct(id);
+        return new ResponseEntity<Product>(HttpStatus.ACCEPTED);
+    }
+
 }
