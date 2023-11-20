@@ -22,13 +22,7 @@ public class OrderController {
     public void postOrder(@RequestBody Order order){
 
         //orderService.createOrder(order);
-        String confirmationMessage = "Order confirmation for order " + order.getOrder_id() + ".\n Date: " +order.getDate()+"\nProducts: ";
-        for(Product p : order.getProductList()){
-            confirmationMessage+=p.getName() + " | Price: "+
-                    p.getPrice() +
-                    " | Quantity: " + p.getQuantity();
-        }
 
-        emailService.sendOrderConfirmation(order.getUser().getUsername(),"Order Confirmation", confirmationMessage);
+        emailService.sendOrderConfirmation(order);
     }
 }
