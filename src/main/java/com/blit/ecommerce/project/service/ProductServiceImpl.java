@@ -12,26 +12,20 @@ import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService{
-
     @Autowired
     private ProductRepository productRepository;
-
     @Override
     public List<Product> getProducts() {
-
         return (List<Product>) productRepository.findAll();
     }
-
     @Override
-    public Product getProductById(Long id) {
+    public Product getProductById(long id) {
         return productRepository.findById(id)
                 .orElseThrow(()-> new ProductNotFoundException("Cannot found the product"));
     }
-
     @Override
     public void saveProduct(Product product) {
          productRepository.save(product);
-
     }
 
 

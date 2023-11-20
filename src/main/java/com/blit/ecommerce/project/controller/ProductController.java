@@ -15,22 +15,20 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getProducts(){
         return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
-
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id){
+    public ResponseEntity<Product> getProductById(@PathVariable long id){
         return new ResponseEntity<>(productService.getProductById(id), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<String> saveProduct(@RequestBody Product product){
         productService.saveProduct(product);
-        return new ResponseEntity<>("Product created successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>("Product is created successfully", HttpStatus.CREATED);
     }
 
 }

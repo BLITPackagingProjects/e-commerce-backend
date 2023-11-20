@@ -33,14 +33,4 @@ public class Cart {
         this.cart_id = cart_id;
     }
 
-    public void addCount(Integer qty){
-        this.number += qty;
-    }
-
-    public void removeCount(Integer qty){
-        int nextCount = this.number - qty;
-        if(nextCount < 0){
-            throw new ProductNotFoundException("No more product to delete");
-        }
-    }
 }

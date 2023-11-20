@@ -7,11 +7,13 @@ import com.blit.ecommerce.project.entities.User;
 import com.blit.ecommerce.project.exception.OrderNotFoundException;
 import com.blit.ecommerce.project.repository.CartRepository;
 import com.blit.ecommerce.project.repository.OrderRepository;
+import com.blit.ecommerce.project.repository.ProductRepository;
 import com.blit.ecommerce.project.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,7 +23,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepository orderRepository;
     @Autowired
-    private ProductService productService;
+    private ProductRepository productRepository;
     @Autowired
     private CartService cartService;
     @Autowired
@@ -29,48 +31,42 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private CartRepository cartRepository;
 
-    @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, ProductService productService, CartService cartService, UserRepository userRepository) {
-        this.orderRepository = orderRepository;
-        this.productService = productService;
-        this.cartService = cartService;
-        this.userRepository = userRepository;
-    }
-
     @Override
     public List<Order> getOrders() {
         return (List<Order>) orderRepository.findAll();
     }
 
     @Override
-    public Order getOrderById(Long id) {
+    public Order getOrderById(long id) {
         return orderRepository.findById(id)
                 .orElseThrow(()-> new OrderNotFoundException("Cannot found order."));
     }
 
     @Override
-    public void createOrder(Long userId, Integer cartId, Integer countToOrder) {
+    public void createOrder(long userId, int cartId) {
         Order order = new Order();
         User user = userRepository.findById(userId).orElse(null);
         Cart cart = cartRepository.findById(cartId).orElse(null);
 
-        order.setUser(user);
         order.setDate(LocalDateTime.now());
+        order.setProductList(cart.getProductList());
+        order.setUser(user);
 
-        List<Product> orderedList = cart.getProductList();
-        for (Product product : orderedList) {
-            order.getProductList().add(product);
-
-            product.removeStock(countToOrder);
-            productService.saveProduct(product);
-        }
+        List<Order> orderList = new ArrayList<>();
+        orderList.add(order);
+        user.setOrderList(orderList);
 
         orderRepository.save(order);
-        cartService.clearCart(cart);
+        for (Product product : order.getProductList()) {
+            product.setOrder(order);
+            productRepository.save(product);
+        }
+        userRepository.save(user);
+//        cartService.clearCart(cart);
     }
 
 //    @Override
-//    public void cancelOrder(Long orderId) {
+//    public void cancelOrder(long orderId) {
 //        if(orderId!=null){
 //            orderRepository.deleteById(orderId);
 //        }

@@ -36,7 +36,7 @@ public class Product {
     private String seller;
 
     @Column
-    private Integer quantity;
+    private int quantity;
 
     @ManyToOne
     @JoinColumn(name="cart_id")
@@ -52,19 +52,13 @@ public class Product {
         this.price = price;
     }
 
-    public Product(long product_id, String name, double price) {
-        this.product_id = product_id;
+    public Product(String name,  double price, int quantity) {
         this.name = name;
         this.price = price;
-    }
-
-    public Product(long product_id, String name, int quantity) {
-        this.product_id = product_id;
-        this.name = name;
         this.quantity = quantity;
     }
 
-    public Product(long product_id, String name, double price, String imageName, String description, String seller, Integer quantity) {
+    public Product(long product_id, String name, double price, String imageName, String description, String seller, int quantity) {
         this.product_id = product_id;
         this.name = name;
         this.price = price;
@@ -74,11 +68,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public void addStock(Integer qty){
+    public void addStock(int qty){
         this.quantity += qty;
     }
 
-    public void removeStock(Integer qty){
+    public void removeStock(int qty){
         if (this.quantity >= qty) {
             this.quantity -= qty;
         } else {

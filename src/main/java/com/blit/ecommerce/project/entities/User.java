@@ -36,7 +36,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Order> orderList = new ArrayList<>();
 
-    public User(String username) {
-        this.username = username;
-    }
+//    public User(String username) {
+//        this.username = username;
+//    }
 }

@@ -3,6 +3,7 @@ package com.blit.ecommerce.project.controller;
 import com.blit.ecommerce.project.entities.Order;
 import com.blit.ecommerce.project.service.OrderService;
 import com.blit.ecommerce.project.service.ProductService;
+import com.blit.ecommerce.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,8 @@ public class OrderController {
     private OrderService orderService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/orders")
     public ResponseEntity<List<Order>> getOrders(){
@@ -25,8 +28,16 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderbById(@PathVariable Long id){
+    public ResponseEntity<Order> getOrderbById(@PathVariable long id){
         return new ResponseEntity<>(orderService.getOrderById(id), HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<String> createOrder(
+            @PathVariable long userId,
+            @PathVariable int cartId){
+        orderService.createOrder(userId, cartId);
+        return new ResponseEntity<>("Order is created successfully", HttpStatus.CREATED);
     }
 
 

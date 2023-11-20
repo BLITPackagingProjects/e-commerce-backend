@@ -2,8 +2,11 @@ package com.blit.ecommerce.project.service;
 import com.blit.ecommerce.project.entities.Cart;
 import com.blit.ecommerce.project.entities.Product;
 import com.blit.ecommerce.project.repository.CartRepository;
+import com.blit.ecommerce.project.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -13,34 +16,29 @@ public class CartServiceImpl implements CartService{
     @Autowired
     private CartRepository cartRepository;
     @Autowired
-    private ProductService productService;
+    private ProductRepository productRepository;
     @Override
     public void createCart(Cart cart) {
         cartRepository.save(cart);
     }
 
     @Override
-    public void addProductToCart(Integer cartId, Long productId, int countToAdd) {
-        Cart cart = cartRepository.findById(cartId).orElse(null);
-        Product product = productService.getProductById(productId);
-
-        cart.getProductList().add(product);
-        cart.addCount(countToAdd);
-        cartRepository.save(cart);
+    public Cart getCartById(int cartId) {
+        return cartRepository.findById(cartId).orElse(null);
     }
 
     @Override
-    public void removeProductFromCart(Integer cartId, Long productId, int countToRemove) {
-        Cart cart = cartRepository.findById(cartId).orElse(null);
-        Product product = productService.getProductById(productId);
+    public void addProductToCart( long productId) {
+        Cart cart = new Cart();
+        Product product = productRepository.findById(productId).orElse(null);
+        List<Product> cartProducts = new ArrayList<>();
+        cartProducts.add(product);
+        cart.setNumber(cartProducts.size());
+        cart.setProductList(cartProducts);
+        product.setCart(cart);
 
-       if(cart!=null && product!=null){
-           int currentCount = cart.getNumber();
-           int newCount = Math.max(currentCount - countToRemove, 0);
-           cart.getProductList().removeIf(p-> p.equals(product));
-           cart.setNumber(newCount);
-           cartRepository.save(cart);
-       }
+        cartRepository.save(cart);
+        productRepository.save(product);
     }
 
     @Override
