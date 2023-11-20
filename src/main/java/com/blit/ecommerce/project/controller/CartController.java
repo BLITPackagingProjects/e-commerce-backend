@@ -14,8 +14,8 @@ public class CartController {
     private CartService cartService;
 
 
-    @PostMapping
-    public ResponseEntity<String> createCart(@RequestParam("productId") long productId){
+    @PostMapping("/{productId}")
+    public ResponseEntity<String> createCart(@PathVariable("productId") long productId){
         cartService.addProductToCart(productId);
         return new ResponseEntity<>("Cart is created successfully", HttpStatus.CREATED);
     }
