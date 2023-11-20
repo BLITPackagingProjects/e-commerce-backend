@@ -1,14 +1,11 @@
 package com.blit.ecommerce.project;
 
-import com.blit.ecommerce.project.entities.Cart;
 import com.blit.ecommerce.project.entities.Order;
 import com.blit.ecommerce.project.entities.Product;
 import com.blit.ecommerce.project.entities.User;
-import com.blit.ecommerce.project.repository.CartRepository;
 import com.blit.ecommerce.project.repository.OrderRepository;
 import com.blit.ecommerce.project.repository.ProductRepository;
 import com.blit.ecommerce.project.repository.UserRepository;
-import com.blit.ecommerce.project.service.CartService;
 import com.blit.ecommerce.project.service.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,10 +25,6 @@ public class ProjectApplication implements CommandLineRunner {
 	private OrderRepository orderRepository;
 	@Autowired
 	private UserRepository userRepository;
-	@Autowired
-	private CartRepository cartRepository;
-	@Autowired
-	private CartService cartService;
 	@Autowired
 	private OrderService orderService;
 

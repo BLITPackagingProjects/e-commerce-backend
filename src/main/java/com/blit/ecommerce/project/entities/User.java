@@ -28,13 +28,13 @@ public class User {
     private String password;
 
     @Column
-    private String firstName;
+    private String firstname;
 
     @Column
-    private String lastName;
+    private String lastname;
 
-    @OneToMany(mappedBy = "user")
-    private List<Order> orderList = new ArrayList<>();
+//    @OneToOne
+//    private Order order;
 
 //    public User(String username) {
 //        this.username = username;

@@ -1,11 +1,9 @@
 package com.blit.ecommerce.project.service;
 
-import com.blit.ecommerce.project.entities.Cart;
 import com.blit.ecommerce.project.entities.Order;
 import com.blit.ecommerce.project.entities.Product;
 import com.blit.ecommerce.project.entities.User;
 import com.blit.ecommerce.project.exception.OrderNotFoundException;
-import com.blit.ecommerce.project.repository.CartRepository;
 import com.blit.ecommerce.project.repository.OrderRepository;
 import com.blit.ecommerce.project.repository.ProductRepository;
 import com.blit.ecommerce.project.repository.UserRepository;
@@ -25,11 +23,8 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    private CartService cartService;
-    @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private CartRepository cartRepository;
+
 
     @Override
     public List<Order> getOrders() {
@@ -43,36 +38,34 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void createOrder(long userId, int cartId) {
+    public void createOrder(long userId) {
         Order order = new Order();
-        User user = userRepository.findById(userId).orElse(null);
-        Cart cart = cartRepository.findById(cartId).orElse(null);
-
+        User user = userRepository.findById(userId).orElseThrow(null);
         order.setDate(LocalDateTime.now());
-        order.setProductList(cart.getProductList());
         order.setUser(user);
+        orderRepository.save(order);
+    }
 
-        List<Order> orderList = new ArrayList<>();
-        orderList.add(order);
-        user.setOrderList(orderList);
+    @Override
+    public void addProductToOrder(long orderId, long productId) {
+       Order order = orderRepository.findById(orderId).orElse(null);
+        Product product = productRepository.findById(productId).orElse(null);
+
+       List<Product> products = new ArrayList<>();
+        products.add(product);
+        product.setOrder(order);
+        productRepository.save(product);
+        order.setProductList(products);
 
         orderRepository.save(order);
-        for (Product product : order.getProductList()) {
-            product.setOrder(order);
-            productRepository.save(product);
-        }
-        userRepository.save(user);
-//        cartService.clearCart(cart);
     }
+
 
 //    @Override
 //    public void cancelOrder(long orderId) {
 //        if(orderId!=null){
 //            orderRepository.deleteById(orderId);
 //        }
-
-
-
 
 }
 
