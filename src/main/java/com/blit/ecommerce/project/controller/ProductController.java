@@ -1,6 +1,10 @@
 package com.blit.ecommerce.project.controller;
 import com.blit.ecommerce.project.entities.Product;
 import com.blit.ecommerce.project.service.ProductService;
+
+
+import com.blit.ecommerce.project.service.ProductServiceImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,16 +16,12 @@ import java.util.List;
 public class ProductController {
 
 
-    private final ProductService productService;
-
-    @Autowired
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
-
-    @GetMapping("/products")
+   @Autowired
+   ProductService productService;
+    @GetMapping
     public ResponseEntity <List<Product>> getProducts() {
-        return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
+    return new ResponseEntity<List<Product>>(productService.getProducts(), HttpStatus.OK);
+
 
     }
     @GetMapping("/{product_id}")
