@@ -1,6 +1,7 @@
 package com.blit.ecommerce.project.entities;
 
 import com.blit.ecommerce.project.exception.NotEnoughStockException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,6 +39,7 @@ public class Product {
     @Column
     private int quantity;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="order_id")
     private Order order;

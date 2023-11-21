@@ -41,8 +41,8 @@ public class OrderController {
 
     @PostMapping("/{orderId}/{productId}")
     public ResponseEntity<String> getOrder(
-            @PathVariable long orderId,
-            @PathVariable long productId){
+            @PathVariable("orderId") long orderId,
+            @PathVariable("productId") long productId){
             orderService.addProductToOrder(orderId, productId);
             return new ResponseEntity<>("Product is added in the order", HttpStatus.CREATED);
     }

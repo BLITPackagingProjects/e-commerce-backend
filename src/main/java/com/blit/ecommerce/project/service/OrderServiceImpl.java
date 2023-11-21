@@ -50,12 +50,9 @@ public class OrderServiceImpl implements OrderService {
     public void addProductToOrder(long orderId, long productId) {
        Order order = orderRepository.findById(orderId).orElse(null);
         Product product = productRepository.findById(productId).orElse(null);
-
-       List<Product> products = new ArrayList<>();
-        products.add(product);
         product.setOrder(order);
         productRepository.save(product);
-        order.setProductList(products);
+
 
         orderRepository.save(order);
     }
