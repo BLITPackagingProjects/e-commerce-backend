@@ -40,6 +40,9 @@ public class Product {
     private String name;
 
     @Column
+    private String status;
+
+    @Column
     private double price;
 
     @Column
