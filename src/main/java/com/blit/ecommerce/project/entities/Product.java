@@ -37,6 +37,7 @@ public class Product {
 
     @Column
     private int quantity;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name="order_id")
