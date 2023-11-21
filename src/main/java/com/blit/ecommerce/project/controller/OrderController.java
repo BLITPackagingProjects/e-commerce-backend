@@ -4,6 +4,7 @@ import com.blit.ecommerce.project.entities.Order;
 import com.blit.ecommerce.project.service.OrderService;
 import com.blit.ecommerce.project.service.ProductService;
 import com.blit.ecommerce.project.service.UserService;
+//import com.blit.ecommerce.project.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +16,15 @@ import java.util.List;
 @RequestMapping("/api/v1/ecommerce/order")
 public class OrderController {
 
+
     @Autowired
     private OrderService orderService;
     @Autowired
     private ProductService productService;
     @Autowired
     private UserService userService;
+    //    @Autowired
+//    EmailService emailService;
 
     @GetMapping("/orders")
     public ResponseEntity<List<Order>> getOrders(){
@@ -43,9 +47,14 @@ public class OrderController {
     public ResponseEntity<String> getOrder(
             @PathVariable("orderId") long orderId,
             @PathVariable("productId") long productId){
-            orderService.addProductToOrder(orderId, productId);
-            return new ResponseEntity<>("Product is added in the order", HttpStatus.CREATED);
+        orderService.addProductToOrder(orderId, productId);
+        return new ResponseEntity<>("Product is added in the order", HttpStatus.CREATED);
     }
-
-
+//    @PostMapping
+//    public void postOrder(@RequestBody Order order){
+//
+//        //orderService.createOrder(order);
+//
+//        emailService.sendOrderConfirmation(order);
+//    }
 }
