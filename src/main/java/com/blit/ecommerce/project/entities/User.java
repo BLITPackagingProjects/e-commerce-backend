@@ -2,10 +2,13 @@ package com.blit.ecommerce.project.entities;
 
 import com.blit.ecommerce.project.entities.Type.Role;
 import jakarta.persistence.*;
+
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import jakarta.validation.constraints.Email;
+
 
 import java.util.Collection;
 import java.util.List;
@@ -25,6 +28,7 @@ public class User implements UserDetails {
     private Long user_id;
 
     @Column
+    @Email
     private String username;
 
     @Column
