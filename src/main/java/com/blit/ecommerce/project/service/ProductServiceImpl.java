@@ -1,6 +1,4 @@
 package com.blit.ecommerce.project.service;
-
-
 import com.blit.ecommerce.project.entities.Product;
 import com.blit.ecommerce.project.exception.ResourceNotFoundException;
 import com.blit.ecommerce.project.repository.ProductRepository;
@@ -17,10 +15,9 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-
     @Override
     public List<Product> getProducts() {
-        return productRepository.findAll();
+        return (List<Product>) productRepository.findAll();
     }
 
     @Override
@@ -39,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
         Product existingProduct = getProductById(id);
         existingProduct.setName(product.getName());
         existingProduct.setPrice(product.getPrice());
-        existingProduct.setImageName(product.getImageName());
+        existingProduct.setImagename(product.getImagename());
         existingProduct.setDescription(product.getDescription());
         existingProduct.setSeller(product.getSeller());
         existingProduct.setStatus(product.getStatus());
@@ -51,11 +48,11 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
-    
-    	@Override
-	public List<Product> regexProducts(String regex) {
-		// TODO Auto-generated method stub
-		return productRepository.findProductByNameRegex(regex);
-	}
+
+    @Override
+    public List<Product> regexProducts(String regex) {
+        // TODO Auto-generated method stub
+        return productRepository.findProductByNameRegex(regex);
+    }
 
 }

@@ -11,8 +11,8 @@ import com.blit.ecommerce.project.entities.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-	
-	@Query(nativeQuery=true, value="select * FROM Product WHERE name REGEXP ?1")
-	List<Product> findProductByNameRegex(String regex);
+
+    @Query(nativeQuery=true, value="select * FROM Product WHERE name REGEXP ?1")
+    List<Product> findProductByNameRegex(String regex);
 
 }

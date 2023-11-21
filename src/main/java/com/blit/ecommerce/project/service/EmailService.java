@@ -16,7 +16,7 @@ public class EmailService {
     private JavaMailSender emailSender;
 
     public void sendOrderConfirmation(
-          Order order) {
+            Order order) {
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("ecommerce.blit.september2023@gmail.com");

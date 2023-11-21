@@ -7,8 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.aspectj.weaver.ast.Or;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,13 +26,19 @@ public class Order {
     private long order_id;
 
     @Column
-    private Date date;
+    private LocalDateTime date;
 
-    @OneToMany(mappedBy = "order")
-    @JsonIgnore
-    private List<Product> productList;
+    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
+    private List<Product> productList = new ArrayList<>();
 
-    @ManyToOne
+    @OneToOne
+    @JoinColumn(name="user_id")
     private User user;
+
+    private boolean canceled;
+
+    public void setCanceled(boolean canceled){
+        this.canceled = canceled;
+    }
 
 }

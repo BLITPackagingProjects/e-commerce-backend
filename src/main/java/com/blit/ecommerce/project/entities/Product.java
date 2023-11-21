@@ -1,5 +1,7 @@
 package com.blit.ecommerce.project.entities;
 
+import com.blit.ecommerce.project.exception.NotEnoughStockException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,20 +23,6 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long product_id;
-    
-    
-    public Product(String name, double price, String imageName, String description, String seller, Long quantity,
-			Cart cart, Order order) {
-		super();
-		this.name = name;
-		this.price = price;
-		this.imageName = imageName;
-		this.description = description;
-		this.seller = seller;
-		this.quantity = quantity;
-		this.cart = cart;
-		this.order = order;
-	}
 
 	@Column
     private String name;
@@ -46,7 +34,7 @@ public class Product {
     private double price;
 
     @Column
-    private String imageName;
+    private String imagename;
 
     @Column
     private String description;
@@ -55,21 +43,11 @@ public class Product {
     private String seller;
 
     @Column
-    private Long quantity;
+    private int quantity;
 
+    @JsonIgnore
     @ManyToOne
-    private Cart cart;
-
-    @ManyToOne
+    @JoinColumn(name="order_id")
     private Order order;
 
-
-    public Product(String name, double price, String imageName, String description, String seller, String status) {
-        this.name = name;
-        this.price = price;
-        this.imageName = imageName;
-        this.description = description;
-        this.seller = seller;
-        this.status = status;
-    }
 }
