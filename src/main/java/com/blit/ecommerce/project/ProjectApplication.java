@@ -1,8 +1,5 @@
 package com.blit.ecommerce.project;
 
-import com.blit.ecommerce.project.entities.Order;
-import com.blit.ecommerce.project.entities.Product;
-import com.blit.ecommerce.project.entities.User;
 import com.blit.ecommerce.project.repository.OrderRepository;
 import com.blit.ecommerce.project.repository.ProductRepository;
 import com.blit.ecommerce.project.repository.UserRepository;
@@ -13,9 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.Arrays;
-import java.util.List;
 
 @SpringBootApplication
 public class ProjectApplication implements CommandLineRunner {

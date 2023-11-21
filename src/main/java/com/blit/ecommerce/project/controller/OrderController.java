@@ -1,6 +1,6 @@
 package com.blit.ecommerce.project.controller;
 
-import com.blit.ecommerce.project.entities.Order;
+import com.blit.ecommerce.project.entities.OrderDetail;
 import com.blit.ecommerce.project.service.OrderService;
 import com.blit.ecommerce.project.service.ProductService;
 import com.blit.ecommerce.project.service.UserService;
@@ -23,12 +23,12 @@ public class OrderController {
     private UserService userService;
 
     @GetMapping("/orders")
-    public ResponseEntity<List<Order>> getOrders(){
+    public ResponseEntity<List<OrderDetail>> getOrders(){
         return new ResponseEntity<>(orderService.getOrders(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> getOrderbById(@PathVariable long id){
+    public ResponseEntity<OrderDetail> getOrderbById(@PathVariable long id){
         return new ResponseEntity<>(orderService.getOrderById(id), HttpStatus.OK);
     }
 
@@ -41,8 +41,8 @@ public class OrderController {
 
     @PostMapping("/{orderId}/{productId}")
     public ResponseEntity<String> getOrder(
-            @PathVariable long orderId,
-            @PathVariable long productId){
+            @PathVariable("orderId") long orderId,
+            @PathVariable("productId") long productId){
             orderService.addProductToOrder(orderId, productId);
             return new ResponseEntity<>("Product is added in the order", HttpStatus.CREATED);
     }

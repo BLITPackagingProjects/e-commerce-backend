@@ -1,6 +1,6 @@
 package com.blit.ecommerce.project.service;
 
-import com.blit.ecommerce.project.entities.Order;
+import com.blit.ecommerce.project.entities.OrderDetail;
 import com.blit.ecommerce.project.entities.Product;
 import com.blit.ecommerce.project.entities.User;
 import com.blit.ecommerce.project.exception.OrderNotFoundException;
@@ -27,37 +27,37 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public List<Order> getOrders() {
-        return (List<Order>) orderRepository.findAll();
+    public List<OrderDetail> getOrders() {
+        return (List<OrderDetail>) orderRepository.findAll();
     }
 
     @Override
-    public Order getOrderById(long id) {
+    public OrderDetail getOrderById(long id) {
         return orderRepository.findById(id)
                 .orElseThrow(()-> new OrderNotFoundException("Cannot found order."));
     }
 
     @Override
     public void createOrder(long userId) {
-        Order order = new Order();
+        OrderDetail orderDetail = new OrderDetail();
         User user = userRepository.findById(userId).orElseThrow(null);
-        order.setDate(LocalDateTime.now());
-        order.setUser(user);
-        orderRepository.save(order);
+        orderDetail.setDate(LocalDateTime.now());
+        orderDetail.setUser(user);
+        orderRepository.save(orderDetail);
     }
 
     @Override
     public void addProductToOrder(long orderId, long productId) {
-       Order order = orderRepository.findById(orderId).orElse(null);
+       OrderDetail orderDetail = orderRepository.findById(orderId).orElse(null);
         Product product = productRepository.findById(productId).orElse(null);
 
        List<Product> products = new ArrayList<>();
         products.add(product);
-        product.setOrder(order);
+        product.setOrderDetail(orderDetail);
         productRepository.save(product);
-        order.setProductList(products);
+        orderDetail.setProductList(products);
 
-        orderRepository.save(order);
+        orderRepository.save(orderDetail);
     }
 
 
