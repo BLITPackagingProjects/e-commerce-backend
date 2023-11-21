@@ -45,9 +45,9 @@ class TestRegex {
 		String regex = "o";
 		List<Product> expected = new ArrayList<Product>();
 		
-		expected.add(new Product("powder", 10.0, null, "a fun time", "disney", 0L, null, null));
-		expected.add(new Product("oil", 100.0, null, "Don't tell america", "Earth", 0L, null, null));
-		expected.add(new Product("doot", 100.0, null, "dootdootdoot", "nootnoot", 0L, null, null));
+		expected.add(new Product("powder", 10.0, null, "a fun time", "disney", 0L, null));
+		expected.add(new Product("oil", 100.0, null, "Don't tell america", "Earth", 0L,  null));
+		expected.add(new Product("doot", 100.0, null, "dootdootdoot", "nootnoot", 0L,  null));
 		Mockito.when(pRepo.findProductByNameRegex(regex)).thenReturn(expected);
 		
 		List<Product> output = pServ.regexProducts(regex);

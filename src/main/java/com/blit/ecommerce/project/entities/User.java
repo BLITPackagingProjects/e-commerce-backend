@@ -36,9 +36,6 @@ public class User implements UserDetails {
     @Column
     private String lastName;
 
-    @OneToMany(mappedBy = "user")
-    private List<Order> orderList;
-
 
     @Enumerated(EnumType.STRING)
     private Role role;

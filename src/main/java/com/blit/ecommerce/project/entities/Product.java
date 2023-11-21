@@ -1,5 +1,6 @@
 package com.blit.ecommerce.project.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +25,7 @@ public class Product {
     
     
     public Product(String name, double price, String imageName, String description, String seller, Long quantity,
-			Cart cart, Order order) {
+			 Order order) {
 		super();
 		this.name = name;
 		this.price = price;
@@ -32,7 +33,7 @@ public class Product {
 		this.description = description;
 		this.seller = seller;
 		this.quantity = quantity;
-		this.cart = cart;
+
 		this.order = order;
 	}
 
@@ -55,9 +56,8 @@ public class Product {
     private Long quantity;
 
     @ManyToOne
-    private Cart cart;
-
-    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "order_id")
     private Order order;
 
     @Column

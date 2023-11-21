@@ -30,7 +30,8 @@ public class Order {
     @JsonIgnore
     private List<Product> productList;
 
-    @ManyToOne
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
 }
