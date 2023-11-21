@@ -60,6 +60,9 @@ public class Product {
     @ManyToOne
     private Order order;
 
+    @Column
+    private String status;
+
 
     public Product(String name, double price, String imageName, String description, String seller, String status) {
         this.name = name;
