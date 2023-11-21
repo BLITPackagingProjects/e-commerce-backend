@@ -12,12 +12,12 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "orderdetail")
+@Table
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order {
+public class OrderDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,7 +26,7 @@ public class Order {
     @Column
     private Date date;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "orderDetail")
     @JsonIgnore
     private List<Product> productList;
 

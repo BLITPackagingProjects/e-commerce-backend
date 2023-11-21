@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.persistence.Entity;
-import org.springframework.context.annotation.Bean;
 
 // make repo/ service/and controller for product and work on it Repository
 @Entity
@@ -25,7 +24,7 @@ public class Product {
     
     
     public Product(String name, double price, String imageName, String description, String seller, Long quantity,
-			 Order order) {
+			 OrderDetail orderDetail) {
 		super();
 		this.name = name;
 		this.price = price;
@@ -34,7 +33,7 @@ public class Product {
 		this.seller = seller;
 		this.quantity = quantity;
 
-		this.order = order;
+		this.orderDetail = orderDetail;
 	}
 
 	@Column
@@ -56,9 +55,8 @@ public class Product {
     private Long quantity;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "order_id")
-    private Order order;
+    private OrderDetail orderDetail;
 
     @Column
     private String status;
