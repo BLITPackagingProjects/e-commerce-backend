@@ -24,7 +24,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long user_id;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column
