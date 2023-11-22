@@ -21,22 +21,21 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long product_id;
-    
-    
+
     public Product(String name, double price, String imageName, String description, String seller, Long quantity,
-			 OrderDetail orderDetail) {
-		super();
-		this.name = name;
-		this.price = price;
-		this.imageName = imageName;
-		this.description = description;
-		this.seller = seller;
-		this.quantity = quantity;
+            OrderDetail orderDetail) {
+        super();
+        this.name = name;
+        this.price = price;
+        this.imageName = imageName;
+        this.description = description;
+        this.seller = seller;
+        this.quantity = quantity;
 
-		this.orderDetail = orderDetail;
-	}
+        this.orderDetail = orderDetail;
+    }
 
-	@Column
+    @Column
     private String name;
 
     @Column
@@ -52,22 +51,45 @@ public class Product {
     private String seller;
 
     @Column
-    private Long quantity;
+    private int quantity;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "order_id")
     private OrderDetail orderDetail;
 
-    @Column
-    private String status;
+    public Product(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
 
+    public Product(String name, double price, int quantity) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
 
-    public Product(String name, double price, String imageName, String description, String seller, String status) {
+    public Product(long product_id, String name, double price, String imageName, String description, String seller,
+            int quantity) {
+        this.product_id = product_id;
         this.name = name;
         this.price = price;
         this.imageName = imageName;
         this.description = description;
         this.seller = seller;
-        this.status = status;
+        this.quantity = quantity;
     }
+
+    public void addStock(int qty) {
+        this.quantity += qty;
+    }
+
+    public void removeStock(int qty) {
+        if (this.quantity >= qty) {
+            this.quantity -= qty;
+        } else {
+            throw new NotEnoughStockException("Not enough stock available.");
+        }
+    }
+
 }

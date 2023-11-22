@@ -1,6 +1,5 @@
 package com.blit.ecommerce.project.entities;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -24,7 +23,7 @@ public class OrderDetail {
     private long order_id;
 
     @Column
-    private Date date;
+    private LocalDateTime date;
 
     @OneToMany(mappedBy = "orderDetail")
     @JsonIgnore
@@ -33,5 +32,11 @@ public class OrderDetail {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    private boolean canceled;
+
+    public void setCanceled(boolean canceled) {
+        this.canceled = canceled;
+    }
 
 }
