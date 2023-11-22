@@ -29,7 +29,7 @@ public class OrderDetail {
     @JsonIgnore
     private List<Product> productList;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 

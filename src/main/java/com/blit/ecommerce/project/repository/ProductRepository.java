@@ -13,5 +13,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 	@Query(nativeQuery = true, value = "select * FROM Product WHERE name REGEXP ?1")
 	List<Product> findProductByNameRegex(String regex);
+	
+	//findProductByOrderDetail_OrderId() //this would work if orderId were named like that, instead of order_id
+	//underscore is a special character, so with when a property has it in a name, gotta do the query manually
+	@Query(nativeQuery = true, value = "select * from Product WHERE order_id= ?1")
+	List<Product> findProductByOrderId(Long order_id);
 
 }

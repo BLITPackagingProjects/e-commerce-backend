@@ -21,13 +21,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/search")
+@CrossOrigin
 public class RegexController {
 	
 	@Autowired
 	ProductService pServ;
 	
 	@GetMapping("/regex")
-	@CrossOrigin
 	public ResponseEntity<List<Product>> regexProducts(@RequestHeader String regex){
 		System.out.println(regex);
 		return new ResponseEntity<>(pServ.regexProducts(regex),HttpStatus.OK);
