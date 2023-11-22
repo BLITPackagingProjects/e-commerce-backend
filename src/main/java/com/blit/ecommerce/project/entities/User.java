@@ -32,10 +32,10 @@ public class User implements UserDetails {
     private String password;
 
     @Column
-    private String firstname;
+    private String firstName;
 
     @Column
-    private String lastname;
+    private String lastName;
 
     @Enumerated(EnumType.STRING)
     private Role role;

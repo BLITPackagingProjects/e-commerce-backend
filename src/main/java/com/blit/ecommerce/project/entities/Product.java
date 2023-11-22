@@ -1,5 +1,6 @@
 package com.blit.ecommerce.project.entities;
 
+import com.blit.ecommerce.project.exception.NotEnoughStockException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long product_id;
 
-    public Product(String name, double price, String imageName, String description, String seller, Long quantity,
+    public Product(String name, double price, String imageName, String description, String seller, int quantity,
             OrderDetail orderDetail) {
         super();
         this.name = name;
@@ -53,7 +54,7 @@ public class Product {
     @Column
     private int quantity;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "order_id")
     private OrderDetail orderDetail;

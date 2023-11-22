@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void createOrder(long userId) {
         OrderDetail orderDetail = new OrderDetail();
-        User user = userRepository.findById(userId).orElseThrow(null);
+        User user = userRepository.findById((int) userId).orElseThrow(null);
         orderDetail.setDate(LocalDateTime.now());
         orderDetail.setUser(user);
         orderRepository.save(orderDetail);

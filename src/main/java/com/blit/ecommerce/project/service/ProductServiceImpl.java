@@ -1,15 +1,10 @@
 package com.blit.ecommerce.project.service;
 
-<<<<<<< HEAD
+
 
 import com.blit.ecommerce.project.entities.Product;
 import com.blit.ecommerce.project.exception.ResourceNotFoundException;
-=======
-import com.blit.ecommerce.project.entities.Product;
 
-import com.blit.ecommerce.project.exception.ProductNotFoundException;
-
->>>>>>> Lisa
 import com.blit.ecommerce.project.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,7 +44,7 @@ public class ProductServiceImpl implements ProductService {
         existingProduct.setImageName(product.getImageName());
         existingProduct.setDescription(product.getDescription());
         existingProduct.setSeller(product.getSeller());
-        existingProduct.setStatus(product.getStatus());
+
         productRepository.save(existingProduct);
         return existingProduct;
     }
