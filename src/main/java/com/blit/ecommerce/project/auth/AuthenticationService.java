@@ -25,13 +25,13 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        Role role = request.isSeller() ? Role.SELLER : Role.USER;
+
         var user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(role)
+                .role(Role.USER)
                 .build();
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);

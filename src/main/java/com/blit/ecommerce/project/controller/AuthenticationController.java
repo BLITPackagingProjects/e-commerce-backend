@@ -4,12 +4,10 @@ import com.blit.ecommerce.project.auth.AuthenticationRequest;
 import com.blit.ecommerce.project.auth.AuthenticationResponse;
 import com.blit.ecommerce.project.auth.AuthenticationService;
 import com.blit.ecommerce.project.auth.RegisterRequest;
-import com.blit.ecommerce.project.entities.User;
+import com.blit.ecommerce.project.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -19,8 +17,12 @@ public class AuthenticationController {
 
     private final AuthenticationService service;
 
+    private final UserRepository repository;
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+        if(repository.existsByUsername(request.getUsername())){
+            return ResponseEntity.badRequest().body("Email is already taken");
+        }
         return ResponseEntity.ok(service.register(request));
     }
 
