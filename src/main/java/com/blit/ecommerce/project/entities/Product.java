@@ -78,7 +78,9 @@ public class Product {
         this.imageName = imageName;
         this.description = description;
         this.seller = seller;
+
         this.quantity = quantity;
+
     }
 
     public void addStock(int qty) {
