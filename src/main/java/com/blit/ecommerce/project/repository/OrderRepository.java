@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrderRepository extends CrudRepository<OrderDetail, Long> {
 
-	@Query(nativeQuery = true, value = "select * from OrderDetail WHERE user_id= ?1")
+	@Query(nativeQuery = true, value = "select order_detail.* from order_detail WHERE user_id= ?1")
 	List<OrderDetail> findOrderByUserId(Long user_id);
 }
