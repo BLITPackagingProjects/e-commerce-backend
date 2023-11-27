@@ -1,6 +1,7 @@
 package com.blit.ecommerce.project.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,6 +26,7 @@ public class User implements UserDetails {
     private Long user_id;
 
     @Column(nullable = false, unique = true)
+    @Email
     private String username;
 
     @Column
