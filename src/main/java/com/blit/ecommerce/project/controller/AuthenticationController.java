@@ -23,6 +23,7 @@ public class AuthenticationController {
         if(repository.existsByUsername(request.getUsername())){
             return ResponseEntity.badRequest().body("Email is already taken");
         }
+        //System.out.println(request);
         return ResponseEntity.ok(service.register(request));
     }
 

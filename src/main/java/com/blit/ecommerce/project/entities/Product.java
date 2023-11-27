@@ -67,6 +67,6 @@ public class Product {
         this.imageName = imageName;
         this.description = description;
         this.seller = seller;
-        this.status = status;
+      //  this.status = status;
     }
 }

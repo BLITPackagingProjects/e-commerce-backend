@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService{
         exsistinProduct.setDescription(product.getDescription());
         exsistinProduct.setImageName(product.getImageName());
         exsistinProduct.setPrice(product.getPrice());
-        exsistinProduct.setStatus(product.getStatus());
+        //exsistinProduct.setStatus(product.getStatus());
         exsistinProduct.setSeller(product.getSeller());
         productRepository.save(exsistinProduct);
 
