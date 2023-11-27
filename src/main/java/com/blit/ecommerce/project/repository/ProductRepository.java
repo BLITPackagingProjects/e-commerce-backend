@@ -16,7 +16,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	
 	//findProductByOrderDetail_OrderId() //this would work if orderId were named like that, instead of order_id
 	//underscore is a special character, so with when a property has it in a name, gotta do the query manually
-	@Query(nativeQuery = true, value = "select * from Product WHERE order_id= ?1")
+	@Query(nativeQuery = true, value = "select Product.* from Product "
+			+ "LEFT JOIN order_products ON product.product_id=order_products.product_id "
+//			+ "LEFT JOIN order_detail ON order_detail.order_id=order_products.order_id "
+			+ "WHERE order_id= ?1")
 	List<Product> findProductByOrderId(Long order_id);
 
 }

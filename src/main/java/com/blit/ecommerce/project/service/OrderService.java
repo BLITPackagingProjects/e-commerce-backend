@@ -9,6 +9,7 @@ public interface OrderService {
     OrderDetail getOrderById(long id);
     void createOrder(long userId);
     void addProductToOrder(long orderId, long productId);
+    List<OrderDetail> findOrderByUserId(long userId);
 
 //    void cancelOrder(long id);
 }

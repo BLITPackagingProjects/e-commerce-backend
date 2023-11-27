@@ -53,12 +53,16 @@ public class OrderServiceImpl implements OrderService {
 
        List<Product> products = new ArrayList<>();
         products.add(product);
-        product.setOrderDetail(orderDetail);
-        productRepository.save(product);
         orderDetail.setProductList(products);
 
         orderRepository.save(orderDetail);
     }
+
+	@Override
+	public List<OrderDetail> findOrderByUserId(long userId) {
+		// TODO Auto-generated method stub
+		return orderRepository.findOrderByUserId(userId);
+	}
 
 
 //    @Override
