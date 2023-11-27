@@ -2,6 +2,7 @@ package com.blit.ecommerce.project.config;
 
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Clock;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -18,6 +19,7 @@ import java.util.function.Function;
 @Service
 public class JwtService {
     private static final String SECRETE_KEY = "B374A26A71490437AA024E4FADD5B497FDFF1A8EA6FF12F6FB65AF2720B59CCF";
+    private static final long TOKEN_VALIDITY = 1000 * 60 * 60 * 24;
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -36,7 +38,7 @@ public class JwtService {
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24 * 30))
+                .setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
                 .compact();
 
@@ -68,5 +70,6 @@ public class JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(SECRETE_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
 }
 

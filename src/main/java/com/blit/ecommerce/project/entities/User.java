@@ -1,6 +1,5 @@
 package com.blit.ecommerce.project.entities;
 
-import com.blit.ecommerce.project.entities.Type.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,7 +24,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long user_id;
 
-    @Column
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column
@@ -37,12 +36,27 @@ public class User implements UserDetails {
     @Column
     private String lastName;
 
-    @Enumerated(EnumType.STRING)
+
+    @OneToMany(mappedBy = "user")
+    private List<OrderDetail> orderList;
+
+
+//    @Enumerated(EnumType.STRING)
+    @OneToOne
+    @JoinColumn(name = "role_id")
     private Role role;
+
+
+
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return List.of(new SimpleGrantedAuthority(role.name()));
+//    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return null;
     }
 
     @Override
