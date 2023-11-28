@@ -41,6 +41,20 @@ public class OrderController {
         orderService.createOrder(userId, orderDetail);
         return new ResponseEntity<>("Order is created successfully", HttpStatus.CREATED);
     }
+    
+    @PostMapping("/checkout/{userId}")
+    public ResponseEntity<String> createOrder(
+            @PathVariable long userId){
+        orderService.checkout(userId);
+        return new ResponseEntity<>("Checkout successful", HttpStatus.CREATED);
+    }
+    
+    @GetMapping("/active/{userId}")
+    public ResponseEntity<OrderDetail> findActiveOrder(
+            @PathVariable long userId){
+        
+        return new ResponseEntity<>(orderService.findActiveOrderByUserId(userId), HttpStatus.OK);
+    }
 
     @PostMapping("/{orderId}/{productId}")
     public ResponseEntity<String> getOrder(

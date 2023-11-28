@@ -13,4 +13,7 @@ public interface OrderRepository extends CrudRepository<OrderDetail, Long> {
 
 	@Query(nativeQuery = true, value = "select order_detail.* from order_detail WHERE user_id= ?1")
 	List<OrderDetail> findOrderByUserId(Long user_id);
+
+	@Query(nativeQuery = true, value = "select order_detail.* from order_detail WHERE user_id= ?1 AND canceled=0 order by date ASC LIMIT 1")
+	OrderDetail findActiveOrderByUserId(Long userId);
 }
