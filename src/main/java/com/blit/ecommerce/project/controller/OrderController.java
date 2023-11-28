@@ -18,6 +18,7 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+    
     @Autowired
     private ProductService productService;
     @Autowired
@@ -25,7 +26,7 @@ public class OrderController {
 
     @GetMapping("/orders")
     public ResponseEntity<List<OrderDetail>> getOrders(){
-        return new ResponseEntity<>(orderService.getOrders(), HttpStatus.OK);
+    	return new ResponseEntity<>(orderService.getOrders(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -50,7 +51,7 @@ public class OrderController {
 
     @GetMapping("/user/{user_id}")
 	public ResponseEntity<List<OrderDetail>> getProductByOrderId(@PathVariable Long user_id){
-	return new ResponseEntity<>(orderService.findOrderByUserId(user_id),HttpStatus.OK);
-}
+    	return new ResponseEntity<>(orderService.findOrderByUserId(user_id),HttpStatus.OK);
+    }
 
 }
