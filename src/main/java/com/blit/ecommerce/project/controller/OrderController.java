@@ -55,6 +55,12 @@ public class OrderController {
         
         return new ResponseEntity<>(orderService.findActiveOrderByUserId(userId), HttpStatus.OK);
     }
+    
+    @DeleteMapping("/cancel/{orderId}")
+    public ResponseEntity<String> cancelOrder(@PathVariable("orderId") long orderId){
+    	orderService.cancelOrder(orderId);
+    	return new ResponseEntity<>("Order cancelled!",HttpStatus.ACCEPTED);
+    }
 
     @PostMapping("/{orderId}/{productId}")
     public ResponseEntity<String> getOrder(

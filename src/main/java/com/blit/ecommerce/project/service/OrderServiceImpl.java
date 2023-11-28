@@ -69,14 +69,15 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public void checkout(long userId) {
 		// TODO Auto-generated method stub
+		/*
 		OrderDetail current = this.findActiveOrderByUserId(userId);
-		current.setCanceled(true);
+		current.setCanceled(true);*/
 		OrderDetail order = new OrderDetail();
 		order.setCanceled(false);
 		order.setDate(LocalDateTime.now());
 		User user = userRepository.findById((int) userId).orElseThrow(null);
 		order.setUser(user);
-		orderRepository.save(current);
+		//orderRepository.save(current);
 		orderRepository.save(order);
 		}
 
@@ -84,6 +85,14 @@ public class OrderServiceImpl implements OrderService {
 	public OrderDetail findActiveOrderByUserId(long userId) {
 		// TODO Auto-generated method stub
 		return orderRepository.findActiveOrderByUserId(userId);
+	}
+
+	@Override
+	public void cancelOrder(long orderId) {
+		// TODO Auto-generated method stub
+		OrderDetail order = getOrderById(orderId);
+		order.setCanceled(true);
+		orderRepository.save(order);
 	}
 
 
