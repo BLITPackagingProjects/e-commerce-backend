@@ -35,8 +35,9 @@ public class OrderController {
 
     @PostMapping("/{userId}")
     public ResponseEntity<String> createOrder(
-            @PathVariable long userId){
-        orderService.createOrder(userId);
+            @PathVariable long userId,
+    @RequestBody OrderDetail orderDetail ){
+        orderService.createOrder(userId, orderDetail);
         return new ResponseEntity<>("Order is created successfully", HttpStatus.CREATED);
     }
 
