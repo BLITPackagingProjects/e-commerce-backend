@@ -33,13 +33,13 @@ public class ProductControllerTest {
     @Test
     public void testGetProducts(){
         List<Product> products = Arrays.asList(new Product(), new Product());
-        when(productService.getProducts()).thenReturn(products);
+        when(productService.getAllProducts()).thenReturn(products);
 
         ResponseEntity<List<Product>> response = productController.getProducts();
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(products, response.getBody());
 
-        verify(productService, times(1)).getProducts();
+        verify(productService, times(1)).getAllProducts();
     }
 }

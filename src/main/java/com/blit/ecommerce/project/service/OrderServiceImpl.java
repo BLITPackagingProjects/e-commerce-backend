@@ -1,6 +1,6 @@
 package com.blit.ecommerce.project.service;
 
-import com.blit.ecommerce.project.entities.Order;
+import com.blit.ecommerce.project.entities.OrderDetail;
 import com.blit.ecommerce.project.entities.Product;
 import com.blit.ecommerce.project.entities.User;
 import com.blit.ecommerce.project.exception.OrderNotFoundException;
@@ -27,34 +27,43 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public List<Order> getOrders() {
-        return (List<Order>) orderRepository.findAll();
+    public List<OrderDetail> getOrders() {
+        return (List<OrderDetail>) orderRepository.findAll();
     }
 
     @Override
-    public Order getOrderById(long id) {
+    public OrderDetail getOrderById(long id) {
         return orderRepository.findById(id)
                 .orElseThrow(()-> new OrderNotFoundException("Cannot found order."));
     }
 
     @Override
-    public void createOrder(long userId) {
-        Order order = new Order();
-        User user = userRepository.findById(userId).orElseThrow(null);
-        order.setDate(LocalDateTime.now());
-        order.setUser(user);
-        orderRepository.save(order);
+    public void createOrder(long userId, OrderDetail orderDetail) {
+        OrderDetail orderDetail1 = new OrderDetail();
+        orderDetail1.setCanceled(orderDetail.isCanceled());
+        User user = userRepository.findById((int) userId).orElseThrow(null);
+        orderDetail1.setDate(LocalDateTime.now());
+        orderDetail1.setUser(user);
+        orderRepository.save(orderDetail1);
     }
 
     @Override
     public void addProductToOrder(long orderId, long productId) {
-       Order order = orderRepository.findById(orderId).orElse(null);
+        OrderDetail orderDetail = orderRepository.findById(orderId).orElse(null);
         Product product = productRepository.findById(productId).orElse(null);
-        product.setOrder(order);
-        productRepository.save(product);
 
+        List<Product> products = new ArrayList<>();
+        products.add(product);
+//        orderDetail.setProductList(products);
+        orderDetail.getProductList().add(product);
 
-        orderRepository.save(order);
+        orderRepository.save(orderDetail);
+    }
+
+    @Override
+    public List<OrderDetail> findOrderByUserId(long userId) {
+        // TODO Auto-generated method stub
+        return orderRepository.findOrderByUserId(userId);
     }
 
 
@@ -65,4 +74,3 @@ public class OrderServiceImpl implements OrderService {
 //        }
 
 }
-

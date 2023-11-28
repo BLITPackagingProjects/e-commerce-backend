@@ -1,6 +1,10 @@
 package com.blit.ecommerce.project.service;
+
+
+
 import com.blit.ecommerce.project.entities.Product;
 import com.blit.ecommerce.project.exception.ResourceNotFoundException;
+
 import com.blit.ecommerce.project.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +19,10 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+
     @Override
-    public List<Product> getProducts() {
-        return (List<Product>) productRepository.findAll();
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
     }
 
     @Override
@@ -36,10 +41,10 @@ public class ProductServiceImpl implements ProductService {
         Product existingProduct = getProductById(id);
         existingProduct.setName(product.getName());
         existingProduct.setPrice(product.getPrice());
-        existingProduct.setImagename(product.getImagename());
+        existingProduct.setImageName(product.getImageName());
         existingProduct.setDescription(product.getDescription());
         existingProduct.setSeller(product.getSeller());
-        existingProduct.setStatus(product.getStatus());
+
         productRepository.save(existingProduct);
         return existingProduct;
     }
@@ -53,6 +58,12 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> regexProducts(String regex) {
         // TODO Auto-generated method stub
         return productRepository.findProductByNameRegex(regex);
+    }
+
+    @Override
+
+    public List<Product> findProductByOrderId(Long order_id){
+        return productRepository.findProductByOrderId(order_id);
     }
 
 }

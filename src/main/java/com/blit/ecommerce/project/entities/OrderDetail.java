@@ -1,25 +1,23 @@
 package com.blit.ecommerce.project.entities;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.aspectj.weaver.ast.Or;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "orderdetail")
+@Table
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order {
+public class OrderDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,16 +26,21 @@ public class Order {
     @Column
     private LocalDateTime date;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
-    private List<Product> productList = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name="order_products",
+            joinColumns=@JoinColumn(name="orderId",referencedColumnName="order_id"),
+            inverseJoinColumns=@JoinColumn(name="productId",referencedColumnName="product_id"))
+    @JsonIgnore
+    private List<Product> productList=new ArrayList<Product>();
 
-    @OneToOne
-    @JoinColumn(name="user_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     private boolean canceled;
 
-    public void setCanceled(boolean canceled){
+    public void setCanceled(boolean canceled) {
         this.canceled = canceled;
     }
 
