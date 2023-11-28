@@ -38,12 +38,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void createOrder(long userId) {
-        OrderDetail orderDetail = new OrderDetail();
+    public void createOrder(long userId, OrderDetail orderDetail) {
+        OrderDetail orderDetail1 = new OrderDetail();
+        orderDetail1.setCanceled(orderDetail.isCanceled());
         User user = userRepository.findById((int) userId).orElseThrow(null);
-        orderDetail.setDate(LocalDateTime.now());
-        orderDetail.setUser(user);
-        orderRepository.save(orderDetail);
+        orderDetail1.setDate(LocalDateTime.now());
+        orderDetail1.setUser(user);
+        orderRepository.save(orderDetail1);
     }
 
     @Override
@@ -53,7 +54,8 @@ public class OrderServiceImpl implements OrderService {
 
        List<Product> products = new ArrayList<>();
         products.add(product);
-        orderDetail.setProductList(products);
+//        orderDetail.setProductList(products);
+        orderDetail.getProductList().add(product);
 
         orderRepository.save(orderDetail);
     }
