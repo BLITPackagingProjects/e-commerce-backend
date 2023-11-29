@@ -7,8 +7,9 @@ public interface OrderService {
 
     List<OrderDetail> getOrders();
     OrderDetail getOrderById(long id);
-    void createOrder(long userId);
+    void createOrder(long userId, OrderDetail orderDetail);
     void addProductToOrder(long orderId, long productId);
+    List<OrderDetail> findOrderByUserId(long userId);
 
 //    void cancelOrder(long id);
 }

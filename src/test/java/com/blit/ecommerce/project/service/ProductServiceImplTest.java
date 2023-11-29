@@ -55,7 +55,7 @@ public class ProductServiceImplTest {
         when(productRepository.findAll()).thenReturn(mockProducts);
 
         // Act
-        List<Product> returnedProducts = productService.getProducts();
+        List<Product> returnedProducts = productService.getAllProducts();
 
         // Assert
         assertNotNull(returnedProducts);

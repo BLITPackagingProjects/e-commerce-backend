@@ -1,5 +1,6 @@
 package com.blit.ecommerce.project.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
@@ -40,6 +41,7 @@ public class User implements UserDetails {
 
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<OrderDetail> orderList;
 
 

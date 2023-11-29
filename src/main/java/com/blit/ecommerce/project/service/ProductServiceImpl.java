@@ -60,4 +60,10 @@ public class ProductServiceImpl implements ProductService {
 		return productRepository.findProductByNameRegex(regex);
 	}
 
+    @Override
+
+	public List<Product> findProductByOrderId(Long order_id){
+    	return productRepository.findProductByOrderId(order_id);
+    }
+    	
 }

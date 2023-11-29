@@ -23,8 +23,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long product_id;
 
-    public Product(String name, double price, String imageName, String description, String seller, int quantity,
-            OrderDetail orderDetail) {
+    public Product(String name, double price, String imageName, String description, String seller, int quantity
+            ) {
         super();
         this.name = name;
         this.price = price;
@@ -33,7 +33,7 @@ public class Product {
         this.seller = seller;
         this.quantity = quantity;
 
-        this.orderDetail = orderDetail;
+        
     }
 
     @Column
@@ -55,9 +55,6 @@ public class Product {
     private int quantity;
 
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private OrderDetail orderDetail;
 
     public Product(String name, double price) {
         this.name = name;
@@ -68,19 +65,6 @@ public class Product {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
-    }
-
-    public Product(long product_id, String name, double price, String imageName, String description, String seller,
-            int quantity) {
-        this.product_id = product_id;
-        this.name = name;
-        this.price = price;
-        this.imageName = imageName;
-        this.description = description;
-        this.seller = seller;
-
-        this.quantity = quantity;
-
     }
 
     public void addStock(int qty) {

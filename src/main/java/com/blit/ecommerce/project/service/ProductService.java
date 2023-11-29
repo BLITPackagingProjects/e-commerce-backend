@@ -17,5 +17,7 @@ public interface ProductService {
     void deleteProduct(Long id);
 
     List<Product> regexProducts(String regex);
+    
+	List<Product> findProductByOrderId(Long order_id);
 
 }

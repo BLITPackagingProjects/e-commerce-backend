@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,11 +26,15 @@ public class OrderDetail {
     @Column
     private LocalDateTime date;
 
-    @OneToMany(mappedBy = "orderDetail")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+    		name="order_products",
+    		joinColumns=@JoinColumn(name="orderId",referencedColumnName="order_id"),
+    		inverseJoinColumns=@JoinColumn(name="productId",referencedColumnName="product_id"))
     @JsonIgnore
-    private List<Product> productList;
+    private List<Product> productList=new ArrayList<Product>();
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 

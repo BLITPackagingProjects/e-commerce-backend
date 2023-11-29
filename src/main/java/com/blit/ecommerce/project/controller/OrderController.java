@@ -1,6 +1,7 @@
 package com.blit.ecommerce.project.controller;
 
 import com.blit.ecommerce.project.entities.OrderDetail;
+import com.blit.ecommerce.project.entities.Product;
 import com.blit.ecommerce.project.service.OrderService;
 import com.blit.ecommerce.project.service.ProductService;
 import com.blit.ecommerce.project.service.UserService;
@@ -34,8 +35,9 @@ public class OrderController {
 
     @PostMapping("/{userId}")
     public ResponseEntity<String> createOrder(
-            @PathVariable long userId){
-        orderService.createOrder(userId);
+            @PathVariable long userId,
+    @RequestBody OrderDetail orderDetail ){
+        orderService.createOrder(userId, orderDetail);
         return new ResponseEntity<>("Order is created successfully", HttpStatus.CREATED);
     }
 
@@ -47,5 +49,9 @@ public class OrderController {
             return new ResponseEntity<>("Product is added in the order", HttpStatus.CREATED);
     }
 
+    @GetMapping("/user/{user_id}")
+	public ResponseEntity<List<OrderDetail>> getProductByOrderId(@PathVariable Long user_id){
+	return new ResponseEntity<>(orderService.findOrderByUserId(user_id),HttpStatus.OK);
+}
 
 }
