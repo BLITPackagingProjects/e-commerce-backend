@@ -14,7 +14,7 @@ public interface ProductService {
 
     Product updateProduct(Long id, Product product);
 
-    void deleteProduct(Long id);
+  String deleteProduct(Long id);
 
     List<Product> regexProducts(String regex);
     

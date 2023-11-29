@@ -2,9 +2,11 @@ package com.blit.ecommerce.project.service;
 
 
 
+import com.blit.ecommerce.project.entities.OrderDetail;
 import com.blit.ecommerce.project.entities.Product;
 import com.blit.ecommerce.project.exception.ResourceNotFoundException;
 
+import com.blit.ecommerce.project.repository.OrderRepository;
 import com.blit.ecommerce.project.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
 
     @Override
@@ -50,8 +55,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteProduct(Long id) {
+    public String deleteProduct(Long id) {
+    List<OrderDetail> orderDetailList = orderRepository.findOrdersByProductId(id);
+    if(orderDetailList.isEmpty()){
         productRepository.deleteById(id);
+        return "Product deleted successfully";
+    }
+    return "Product cannot be deleted";
     }
     
     	@Override
