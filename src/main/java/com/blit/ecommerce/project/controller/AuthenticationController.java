@@ -53,5 +53,6 @@ public class AuthenticationController {
         }
         String token = UUID.randomUUID().toString();
         userService.createPasswordResetToken(user, token);
+        return null;
     }
 }

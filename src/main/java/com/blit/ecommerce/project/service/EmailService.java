@@ -16,9 +16,8 @@ public class EmailService {
     @Autowired
     OrderService orderService;
     public void sendOrderConfirmation(
-            OrderDetail orderId) {
+            OrderDetail order) {
 
-        OrderDetail order = orderService.getOrderById(orderId);
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("ecommerce.blit.september2023@gmail.com");
