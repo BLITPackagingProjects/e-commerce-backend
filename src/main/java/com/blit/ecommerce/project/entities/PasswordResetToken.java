@@ -10,6 +10,8 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 public class PasswordResetToken {
+
+    private static final int EXPIRATION = 60 * 24;
     @Id
     @GeneratedValue
     private Long id;
@@ -20,8 +22,8 @@ public class PasswordResetToken {
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
-    private Date expirationDate;
 
+    private Date expiryDate;
     public PasswordResetToken(String token, User user) {
         this.token = token;
         this.user = user;

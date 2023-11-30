@@ -1,7 +1,9 @@
 package com.blit.ecommerce.project.auth;
 
 import com.blit.ecommerce.project.config.JwtService;
+import com.blit.ecommerce.project.entities.PasswordResetToken;
 import com.blit.ecommerce.project.entities.UserRole;
+import com.blit.ecommerce.project.repository.PasswordResetTokenRepository;
 import com.blit.ecommerce.project.repository.RoleRepository;
 import com.blit.ecommerce.project.repository.UserRepository;
 import com.blit.ecommerce.project.entities.User;
@@ -15,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -31,6 +34,7 @@ public class AuthenticationService {
 
     private final RoleRepository roleRepository;
     private final UserRoleRepository userRoleRepository;
+    private final PasswordResetTokenRepository passwordResetTokenRepository;
 
     public AuthenticationResponse register(RegisterRequest request) {
 
@@ -98,6 +102,17 @@ public class AuthenticationService {
                 .user(user)
                 .token(jwtToken)
                 .build();
+    }
+    public String validatePasswordResetToken(String token){
+        PasswordResetToken passwordResetToken = passwordResetTokenRepository.findByToken(token);
+
+        if(passwordResetToken==null){
+            return "invalidToken";
+        }else if(passwordResetToken.getExpiryDate().before(Calendar.getInstance().getTime())){
+            return "expired";
+        }else {
+            return null;
+        }
     }
 
 }

@@ -39,6 +39,8 @@ public class User implements UserDetails {
     @Column
     private String lastName;
 
+    @Column
+    private String resetToken;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore

@@ -33,4 +33,8 @@ public class UserServiceImpl implements UserService {
         PasswordResetToken token = new PasswordResetToken(tokenStr, user);
         passwordResetTokenRepository.save(token);
     }
+    @Override
+    public User findUserByResetToken(String resetToken){
+        return userRepository.findByResetToken(resetToken);
+    }
 }

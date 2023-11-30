@@ -10,11 +10,13 @@ import com.blit.ecommerce.project.repository.UserRepository;
 import com.blit.ecommerce.project.service.UserService;
 import jakarta.persistence.Id;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.UUID;
 
 @RestController
@@ -54,5 +56,24 @@ public class AuthenticationController {
         String token = UUID.randomUUID().toString();
         userService.createPasswordResetToken(user, token);
         return null;
+    }
+
+
+    @GetMapping("/changePassword")
+    public void changePasswordPage(@RequestParam("token") String token, HttpServletResponse response){
+        String result = service.validatePasswordResetToken(token);
+        if(result!=null){
+            try {
+                response.sendRedirect("/");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }else {
+            try {
+                response.sendRedirect("api/v1/auth/updatePassword");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
