@@ -44,9 +44,8 @@ public class User implements UserDetails {
 
 
 //    @Enumerated(EnumType.STRING)
-    @OneToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+    @OneToMany
+    private List<Role> roleList;
 
 
 

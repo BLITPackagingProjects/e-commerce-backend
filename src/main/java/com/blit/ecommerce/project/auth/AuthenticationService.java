@@ -7,6 +7,7 @@ import com.blit.ecommerce.project.repository.UserRepository;
 import com.blit.ecommerce.project.entities.User;
 import com.blit.ecommerce.project.entities.Role;
 import com.blit.ecommerce.project.repository.UserRoleRepository;
+import com.blit.ecommerce.project.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.support.BeanDefinitionDsl;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,7 +20,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationService {
+public class AuthenticationService{
 
     private final UserRepository repository;
 
@@ -35,7 +36,12 @@ public class AuthenticationService {
     public AuthenticationResponse register(RegisterRequest request) {
 
 
-         List<UserRole> listOfRole = new ArrayList<>();
+//         List<UserRole> listOfRole = new ArrayList<>();
+
+        List<Role> listOfRole = new ArrayList<>();
+
+        UserRole userRole1 = userRoleRepository.findById(1).orElseThrow(null);
+        UserRole userRole2 = userRoleRepository.findById(2).orElseThrow(null);
 
 
 //        var List<Role> listOfRole= new Ro();
@@ -44,27 +50,37 @@ public class AuthenticationService {
 
         if(request.getTypeId()==1){
 
-            UserRole userRole1 = userRoleRepository.findById(1).orElseThrow(null);
-            listOfRole.add(userRole1);
+//            UserRole userRole1 = userRoleRepository.findById(1).orElseThrow(null);
+//            listOfRole.add(userRole1);
+            Role role1 = new Role();
+            role1.setUserRole(userRole1);
+            listOfRole.add(role1);
+            roleRepository.save(role1);
+
 
 
         } else if (request.getTypeId()==2) {
 
-            UserRole userRole2  = userRoleRepository.findById(2).orElseThrow(null);
-            listOfRole.add(userRole2);
+//            UserRole userRole2  = userRoleRepository.findById(2).orElseThrow(null);
+//            listOfRole.add(userRole2);
+
+            Role role2 = new Role();
+            role2.setUserRole(userRole2);
+            listOfRole.add(role2);
+            roleRepository.save(role2);
 
         }
 
-        Role role = new Role();
-        role.setUserRoleList(listOfRole);
-        roleRepository.save(role);
+//        Role role = new Role();
+//        role.setUserRoleList(listOfRole);
+//        roleRepository.save(role);
 
         var user = User.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(role)
+                .roleList(listOfRole)
                 .build();
         repository.save(user);
 

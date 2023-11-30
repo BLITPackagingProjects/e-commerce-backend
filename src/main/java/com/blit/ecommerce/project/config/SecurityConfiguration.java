@@ -29,6 +29,8 @@ public class SecurityConfiguration {
                 .permitAll()
                 .requestMatchers("/api/v1/product/**")
                 .permitAll()
+                .requestMatchers("/api/v1/ecommerce/order/**")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
