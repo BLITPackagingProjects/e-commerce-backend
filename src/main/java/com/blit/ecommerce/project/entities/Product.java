@@ -67,6 +67,8 @@ public class Product {
         this.quantity = quantity;
     }
 
+
+
     public void addStock(int qty) {
         this.quantity += qty;
     }
