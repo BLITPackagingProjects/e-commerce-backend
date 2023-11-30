@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-public class filesManagerProperties {
+public class FilesManagerProperties {
 
     private final String storageDir = "files_storage";
 
@@ -15,19 +15,19 @@ public class filesManagerProperties {
     private boolean overWrite = false;
 
 
-    public filesManagerProperties() {
+    public FilesManagerProperties() {
     }
 
-    public filesManagerProperties(String[] acceptableTypes) {
+    public FilesManagerProperties(String[] acceptableTypes) {
         this.acceptableTypes = acceptableTypes;
     }
 
-    public filesManagerProperties(boolean generateFilesName, boolean overWrite) {
+    public FilesManagerProperties(boolean generateFilesName, boolean overWrite) {
         this.generateFilesName = generateFilesName;
         this.overWrite = overWrite;
     }
 
-    public filesManagerProperties(String[] acceptableTypes, boolean generateFilesName, boolean overWrite) {
+    public FilesManagerProperties(String[] acceptableTypes, boolean generateFilesName, boolean overWrite) {
         this.acceptableTypes = acceptableTypes;
         this.generateFilesName = generateFilesName;
         this.overWrite = overWrite;

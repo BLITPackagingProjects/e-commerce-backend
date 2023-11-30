@@ -2,16 +2,24 @@ package com.blit.ecommerce.project.controller;
 
 
 
+import com.blit.ecommerce.project.config.FilesManagerProperties;
 import com.blit.ecommerce.project.entities.Product;
 import com.blit.ecommerce.project.exception.FileManagerException;
+import com.blit.ecommerce.project.service.FilesOperations_interface;
 import com.blit.ecommerce.project.service.ProductService;
 
 
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 
@@ -23,6 +31,12 @@ import java.util.List;
 @RequestMapping("/api/v1/product")
 public class ProductController {
    private final ProductService productService;
+
+   @Autowired
+   private FilesOperations_interface filesOperations_interface;
+
+  @Autowired
+  private FilesManagerProperties filesManagerProperties;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
@@ -64,6 +78,17 @@ public class ProductController {
         }
 
 
+    }
+
+    @GetMapping("/image/{id}")
+    public void getPetImage(
+            @PathVariable("id") long id,
+            HttpServletResponse response
+    ) throws IOException {
+        Product product  = productService.getProductById(id);
+        InputStream inputStream = filesOperations_interface.getFileContent(filesManagerProperties.getStorageDir(),product.getImageName());
+        response.setContentType(MediaType.IMAGE_PNG_VALUE);
+        StreamUtils.copy(inputStream, response.getOutputStream());
     }
 
 

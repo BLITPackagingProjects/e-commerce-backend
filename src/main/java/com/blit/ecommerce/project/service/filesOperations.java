@@ -1,33 +1,29 @@
 package com.blit.ecommerce.project.service;
 
 import com.blit.ecommerce.project.exception.FileManagerException;
-import com.blit.ecommerce.project.service.filesOperations_interface;
-import com.blit.ecommerce.project.config.filesManagerProperties;
+import com.blit.ecommerce.project.config.FilesManagerProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.Random;
 
 @Service
-public class filesOperations implements filesOperations_interface {
+public class filesOperations implements FilesOperations_interface {
 
 
-    private final filesManagerProperties properties;
+    private final FilesManagerProperties properties;
 
    @Autowired
-   public filesOperations(filesManagerProperties properties) {
+   public filesOperations(FilesManagerProperties properties) {
         this.properties = properties;
    }
 
@@ -106,8 +102,13 @@ public class filesOperations implements filesOperations_interface {
     }
 
     @Override
-    public Resource getFileContent(String fileName) {
-        return null;
+    public InputStream getFileContent(String path,String fileName) throws FileNotFoundException {
+        String fullPath = path+File.separator+fileName;
+
+        InputStream inputStream = new FileInputStream(fullPath);
+
+        return inputStream;
+
     }
 
     @Override
