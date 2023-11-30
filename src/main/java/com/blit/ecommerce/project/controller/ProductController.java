@@ -3,12 +3,14 @@ package com.blit.ecommerce.project.controller;
 
 
 import com.blit.ecommerce.project.entities.Product;
+import com.blit.ecommerce.project.exception.FileManagerException;
 import com.blit.ecommerce.project.service.ProductService;
 
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -43,9 +45,23 @@ public class ProductController {
         productService.updateProduct(product_id, product);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
-  @PostMapping
-    public ResponseEntity<Product> saveProduct(@RequestBody Product product){
-        return new ResponseEntity<>(productService.saveProduct(product),HttpStatus.CREATED);
+//  @PostMapping
+//    public ResponseEntity<Product> saveProduct(@RequestBody Product product){
+//
+//        return new ResponseEntity<>(product,HttpStatus.CREATED);
+//        // return new ResponseEntity<>(productService.saveProduct(product),HttpStatus.CREATED);
+//    }
+    @PostMapping
+    public ResponseEntity<String> saveProduct(@RequestParam String name, double price, MultipartFile image, String description, String seller, int quantity) {
+
+        try {
+            productService.saveProduct(name, price, image, description, seller, quantity);
+            return new ResponseEntity<>("Product added successfully.",HttpStatus.CREATED);
+        }catch (FileManagerException e){
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_ACCEPTABLE);
+        }
+
+
     }
 
 
