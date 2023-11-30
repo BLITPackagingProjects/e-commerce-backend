@@ -55,9 +55,11 @@ public class ProductController {
     public ResponseEntity<String> saveProduct(@RequestParam String name, double price, MultipartFile image, String description, String seller, int quantity) {
 
         try {
-            productService.saveProduct(name, price, image, description, seller, quantity);
+            Product sanatizedProduct = productService.sanatizingProductData(name,price,image,description,seller,quantity);
+
+            productService.saveProduct(sanatizedProduct);
             return new ResponseEntity<>("Product added successfully.",HttpStatus.CREATED);
-        }catch (FileManagerException e){
+        } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_ACCEPTABLE);
         }
 
@@ -71,6 +73,18 @@ public class ProductController {
 
         return new ResponseEntity<String>(productService.deleteProduct(id),HttpStatus.ACCEPTED);
 
+
+    }
+
+    @PostMapping("/update-image")
+    public ResponseEntity<String> updateImage(@RequestParam Long id, MultipartFile imageFile){
+
+        try {
+
+            return new ResponseEntity<String>(productService.updateProductImage(id,imageFile),HttpStatus.ACCEPTED);
+        }catch (FileManagerException e){
+            return  new ResponseEntity<String>("error",HttpStatus.NOT_ACCEPTABLE);
+        }
 
     }
 

@@ -14,7 +14,7 @@ public interface ProductService {
 
 //    Product saveProduct(Product product);
 
-    Product saveProduct(String name, double price, MultipartFile image, String description, String seller, int quantity) throws FileManagerException;
+    Product saveProduct(Product product);
 
     Product updateProduct(Long id, Product product);
 
@@ -24,6 +24,8 @@ public interface ProductService {
     
 	List<Product> findProductByOrderId(Long order_id);
 
+    Product sanatizingProductData(String name, double price, MultipartFile image, String description, String seller, int quantity) throws Exception;
 
+    String updateProductImage(Long id, MultipartFile imageFile) throws FileManagerException;
 
 }
