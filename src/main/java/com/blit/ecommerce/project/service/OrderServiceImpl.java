@@ -67,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public void checkout(long userId) {
+	public OrderDetail checkout(long userId) {
 		// TODO Auto-generated method stub
 		/*
 		OrderDetail current = this.findActiveOrderByUserId(userId);
@@ -79,6 +79,7 @@ public class OrderServiceImpl implements OrderService {
 		order.setUser(user);
 		//orderRepository.save(current);
 		orderRepository.save(order);
+		return order;
 		}
 
 	@Override

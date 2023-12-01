@@ -42,10 +42,10 @@ public class OrderController {
     }
     
     @PostMapping("/checkout/{userId}")
-    public ResponseEntity<String> createOrder(
+    public ResponseEntity<OrderDetail> createOrder(
             @PathVariable long userId){
-        orderService.checkout(userId);
-        return new ResponseEntity<>("Checkout successful", HttpStatus.CREATED);
+        
+        return new ResponseEntity<>(orderService.checkout(userId), HttpStatus.CREATED);
     }
     
     @GetMapping("/active/{userId}")
