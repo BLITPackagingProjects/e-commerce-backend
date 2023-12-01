@@ -13,6 +13,7 @@ public interface OrderService {
 	OrderDetail checkout(long userId);
 	OrderDetail findActiveOrderByUserId(long userId);
 	void cancelOrder(long orderId);
+	void removeProductFromOrder(long orderId, long productId);
 
 //    void cancelOrder(long id);
 }

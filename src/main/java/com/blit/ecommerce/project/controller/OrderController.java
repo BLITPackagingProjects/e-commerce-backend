@@ -68,6 +68,14 @@ public class OrderController {
             orderService.addProductToOrder(orderId, productId);
             return new ResponseEntity<>("Product is added in the order", HttpStatus.CREATED);
     }
+    
+    @DeleteMapping("/{orderId}/{productId}")
+    public ResponseEntity<String> remOrder(
+            @PathVariable("orderId") long orderId,
+            @PathVariable("productId") long productId){
+            orderService.removeProductFromOrder(orderId, productId);
+            return new ResponseEntity<>("Product is removed from the order", HttpStatus.CREATED);
+    }
 
     @GetMapping("/user/{user_id}")
 	public ResponseEntity<List<OrderDetail>> getProductByOrderId(@PathVariable Long user_id){

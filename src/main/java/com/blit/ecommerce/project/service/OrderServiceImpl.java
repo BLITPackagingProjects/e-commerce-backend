@@ -52,14 +52,25 @@ public class OrderServiceImpl implements OrderService {
        OrderDetail orderDetail = orderRepository.findById(orderId).orElse(null);
         Product product = productRepository.findById(productId).orElse(null);
 
-       List<Product> products = new ArrayList<>();
-        products.add(product);
+ //      List<Product> products = new ArrayList<>();
+ //       products.add(product);
 //        orderDetail.setProductList(products);
         orderDetail.getProductList().add(product);
 
         orderRepository.save(orderDetail);
     }
 
+	@Override
+	public void removeProductFromOrder(long orderId, long productId) {
+		OrderDetail orderDetail = orderRepository.findById(orderId).orElse(null);
+        Product product = productRepository.findById(productId).orElse(null);
+        
+        orderDetail.getProductList().remove(product);
+        
+        orderRepository.save(orderDetail);
+
+	}
+	
 	@Override
 	public List<OrderDetail> findOrderByUserId(long userId) {
 		// TODO Auto-generated method stub
@@ -95,6 +106,7 @@ public class OrderServiceImpl implements OrderService {
 		order.setCanceled(true);
 		orderRepository.save(order);
 	}
+
 
 
 //    @Override
